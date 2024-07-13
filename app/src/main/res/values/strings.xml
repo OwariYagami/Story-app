@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name">MyStoryApp</string>
+    <string name="login">Login</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="havent">Not have an account? </string>
+    <string name="register">Register</string>
+    <string name="name">Username</string>
+    <string name="have">"Already have an account?"</string>
+    <string name="let_s_explore_the_worlds">Let\'s explore\nthe world</string>
+    <string name="searchbarHint">Search something...</string>
+    <string name="this_is_title">This is title</string>
+    <string name="description">Lorem ipsum dolor sit amet, consectual amigos lorem ipsum amigos lorem ipsum dolor sitametamigos</string>
+    <string name="createdat">Uploaded at 12 Aug 2023</string>
+    <string name="title_activity_main2">MainActivity2</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="write_description">Description...</string>
+    <string name="Add">Add New Story</string>
+    <string name="upload_image">Upload Image</string>
+    <string name="take_a_picture">Take a Picture</string>
+    <string name="gallery">Gallery</string>
+    <string name="take_photo">Take Photo</string>
+</resources>
