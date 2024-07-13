@@ -13,6 +13,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.overdevx.mystoryapp.MainActivity
+import com.overdevx.mystoryapp.MainActivity2
 import com.overdevx.mystoryapp.R
 import com.overdevx.mystoryapp.customview.MyEditText
 import com.overdevx.mystoryapp.customview.MyPasswordEditText
@@ -56,7 +57,7 @@ class LoginActivity : AppCompatActivity() {
             if (response.error == false) {
                 Toast.makeText(this, "Login success : ${response.message}", Toast.LENGTH_SHORT)
                     .show()
-                startActivity(Intent(this@LoginActivity, MainActivity::class.java))
+                startActivity(Intent(this@LoginActivity, MainActivity2::class.java))
                 finish()
             } else {
                 Toast.makeText(this, "Login failed : ${response.message}", Toast.LENGTH_SHORT)

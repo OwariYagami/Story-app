@@ -42,6 +42,12 @@ class MainViewModel(private val userRepository: UserRepository) : ViewModel() {
             }
         }
     }
+
+    fun logout() {
+        viewModelScope.launch {
+            userRepository.logout()
+        }
+    }
 }
 
 class MainViewModelFactory(private val context: Context) : ViewModelProvider.Factory {

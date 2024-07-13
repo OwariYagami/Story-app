@@ -43,7 +43,8 @@ class DataStoreManager(private val context: Context) {
 
     suspend fun clearData() {
         context.dataStore.edit { preferences ->
-            preferences.clear()
+            preferences[USER_TOKEN_KEY] = ""
         }
     }
+
 }

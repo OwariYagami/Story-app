@@ -5,9 +5,13 @@ import com.overdevx.mystoryapp.data.datastore.DataStoreManager
 import com.overdevx.mystoryapp.data.response.ResponseListStory
 import com.overdevx.mystoryapp.data.response.ResponseLogin
 import com.overdevx.mystoryapp.data.response.ResponseRegister
+import com.overdevx.mystoryapp.data.response.ResponseUpload
+import com.overdevx.mystoryapp.data.retrofit.ApiConfig
 import com.overdevx.mystoryapp.data.retrofit.ApiServices
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 
 class UserRepository(private val apiService: ApiServices,private val dataStoreManager: DataStoreManager) {
 
@@ -29,5 +33,13 @@ class UserRepository(private val apiService: ApiServices,private val dataStoreMa
 
     fun getToken(): Flow<String?> {
         return dataStoreManager.userToken
+    }
+
+    suspend fun uploadImage(file: MultipartBody.Part, description: RequestBody): ResponseUpload {
+        return apiService.uploadImage(file, description)
+    }
+
+    suspend fun logout(){
+        return dataStoreManager.clearData()
     }
 }

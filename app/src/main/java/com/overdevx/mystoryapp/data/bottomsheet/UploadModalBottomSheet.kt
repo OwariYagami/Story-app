@@ -18,41 +18,18 @@ import com.overdevx.mystoryapp.databinding.ChooseBottomSheetLayoutBinding
 import com.overdevx.mystoryapp.ui.dashboard.CameraActivity
 import java.io.File
 
-class UploadModalBottomSheet(uploadListener: UploadDialogListener) :
+class UploadModalBottomSheet() :
     BottomSheetDialogFragment() {
-    // lateinit var binding: UploadBottomsheetLayoutBinding
     lateinit var binding: ChooseBottomSheetLayoutBinding
-    var imageUri: Uri? = null
-    var status: String = ""
-    private var mBottomSheetListener2: UploadDialogListener? = null
-
-    init {
-        this.mBottomSheetListener2 = uploadListener
+    var uploadOptionListener: UploadOptionListener? = null
+    interface UploadOptionListener {
+        fun onCameraSelected()
+        fun onGallerySelected()
     }
 
     companion object {
-        private const val REQUEST_PICK_IMAGE = 1
-        const val TAG = "ModalBottomSheet"
-
-
-    }
-
-    interface UploadDialogListener {
-        fun onImageSelected(imageUri: File)
-    }
-
-    private var imageFile: File? = null
-    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        return super.onCreateDialog(savedInstanceState).apply {
-            window?.setDimAmount(0.4f)
-            /** Set dim amount here (the dimming factor of the parent fragment) */
-
-            /** IMPORTANT! Here we set transparency to dialog layer */
-            setOnShowListener {
-                val bottomSheet =
-                    findViewById<View>(com.google.android.material.R.id.design_bottom_sheet) as FrameLayout
-
-            }
+        fun newInstance(): UploadModalBottomSheet {
+            return UploadModalBottomSheet()
         }
     }
 
@@ -69,64 +46,16 @@ class UploadModalBottomSheet(uploadListener: UploadDialogListener) :
         )
 
         binding.cvTake.setOnClickListener {
-            val intent = Intent(requireContext(), CameraActivity::class.java)
-            startActivity(intent)
+            uploadOptionListener?.onCameraSelected()
+            dismiss()
         }
         binding.cvGal.setOnClickListener {
-            pickImageFromGallery()
+            uploadOptionListener?.onGallerySelected()
+            dismiss()
         }
 
         return binding.root
 
-    }
-
-    private fun pickImageFromGallery() {
-        // Membuat intent untuk memilih gambar dari galeri
-        val intent = Intent(Intent.ACTION_PICK)
-        intent.type = "image/*" // Menentukan tipe konten yang ingin dipilih (semua jenis gambar)
-
-        // Menjalankan intent untuk memilih gambar
-        startActivityForResult(intent, REQUEST_PICK_IMAGE)
-    }
-
-    @SuppressLint("Recycle")
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == REQUEST_PICK_IMAGE && resultCode == Activity.RESULT_OK) {
-            imageUri = data?.data
-            if (imageUri != null) {
-
-                val inputStream = requireActivity().contentResolver.openInputStream(imageUri!!)
-                val cursor =
-                    requireActivity().contentResolver.query(imageUri!!, null, null, null, null)
-                cursor?.use { c ->
-                    val nameIndex = c.getColumnIndex(OpenableColumns.DISPLAY_NAME)
-                    if (c.moveToFirst()) {
-                        val name = c.getString(nameIndex)
-                        inputStream?.let { inputStream ->
-                            val file = File(requireActivity().cacheDir, name)
-                            val os = file.outputStream()
-                            os.use {
-                                inputStream.copyTo(it)
-                            }
-
-                            imageFile = file
-                            mBottomSheetListener2?.onImageSelected(imageFile!!)
-
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        /** attach listener from parent fragment */
-        try {
-            mBottomSheetListener2 = context as UploadDialogListener?
-        } catch (e: ClassCastException) {
-        }
     }
 
 }

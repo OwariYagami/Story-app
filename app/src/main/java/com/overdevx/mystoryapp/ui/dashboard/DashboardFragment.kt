@@ -3,56 +3,52 @@ package com.overdevx.mystoryapp.ui.dashboard
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+import android.widget.Toast
+import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
+import com.overdevx.mystoryapp.R
 import com.overdevx.mystoryapp.data.bottomsheet.UploadModalBottomSheet
-import com.overdevx.mystoryapp.data.getImageUri
+import com.overdevx.mystoryapp.data.reduceFileImage
+import com.overdevx.mystoryapp.data.uriToFile
 import com.overdevx.mystoryapp.databinding.FragmentDashboardBinding
 import com.overdevx.mystoryapp.ui.dashboard.CameraActivity.Companion.CAMERAX_RESULT
-import okhttp3.MediaType
+import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
-import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.asRequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.File
 
-class DashboardFragment : Fragment(), UploadModalBottomSheet.UploadDialogListener  {
+class DashboardFragment : Fragment() {
 
     private var _binding: FragmentDashboardBinding? = null
-    var uriImage: MultipartBody.Part? = null
     private var currentImageUri: Uri? = null
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
-    lateinit var dialog: UploadModalBottomSheet
-    lateinit var listener2: UploadModalBottomSheet.UploadDialogListener
+    private lateinit var dashboardViewModel: DashboardViewModel
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val dashboardViewModel =
-            ViewModelProvider(this).get(DashboardViewModel::class.java)
+        val viewModelFactory = DashboardViewModelFactory(requireContext())
+        dashboardViewModel =
+            ViewModelProvider(this, viewModelFactory).get(DashboardViewModel::class.java)
 
         _binding = FragmentDashboardBinding.inflate(inflater, container, false)
         val root: View = binding.root
+        observeUpload()
 
-        binding.cardChoose.setOnClickListener {
-//            dialog = UploadModalBottomSheet(listener2)
-//            dialog.show(
-//                requireActivity().supportFragmentManager,
-//                UploadModalBottomSheet.TAG
-//            )
-            startCameraX()
 
-        }
 
         return root
     }
@@ -62,29 +58,97 @@ class DashboardFragment : Fragment(), UploadModalBottomSheet.UploadDialogListene
         _binding = null
     }
 
-    override fun onImageSelected(imageUri: File) {
-        Glide.with(requireContext())
-            .load(imageUri)
-            .into(binding.ivPlaceholder)
-        val requestFile: RequestBody =
-            RequestBody.create("image/*".toMediaTypeOrNull(), imageUri)
-
-        val imagePart: MultipartBody.Part =
-            MultipartBody.Part.createFormData("photo", imageUri.name, requestFile)
-
-        uriImage = imagePart
-        dialog.dismiss()
+    private fun observeUpload() {
+        dashboardViewModel.uploadResult.observe(viewLifecycleOwner) { response ->
+            if (response != null) {
+                if (response.error == false) {
+                    Toast.makeText(requireContext(), "Upload Successful", Toast.LENGTH_SHORT).show()
+                    binding.etDesc.setText("")
+                    binding.ivPlaceholder.setImageResource(R.drawable.ic_add_image)
+                    dashboardViewModel.uploadResult.value = null
+                } else {
+                    Toast.makeText(requireContext(), "Upload Failed", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        listener2 = this
+    private fun uploadImage() {
+        currentImageUri?.let { uri ->
+            val imageFile = uriToFile(uri, requireContext()).reduceFileImage()
+            Log.d("Image File", "showImage: ${imageFile.path}")
+            val description = binding.etDesc.text.toString()
+            val requestBody = description.toRequestBody("text/plain".toMediaType())
+            val requestImageFile = imageFile.asRequestBody("image/jpeg".toMediaType())
+            val multipartBody = MultipartBody.Part.createFormData(
+                "photo",
+                imageFile.name,
+                requestImageFile
+            )
+            dashboardViewModel.uploadImage(multipartBody, requestBody)
+        } ?: run {
+            Toast.makeText(requireContext(), "Please select an image first", Toast.LENGTH_SHORT)
+                .show()
+        }
+    }
+
+    private fun validateInputs() {
+        val isDescriptionFilled = binding.etDesc.text.toString().isNotEmpty()
+        val isImageSelected = currentImageUri != null
+        binding.btnUpload.isEnabled = isDescriptionFilled && isImageSelected
+    }
+
+    private fun showLoading(isLoading: Boolean) {
+        binding.progressindicator.visibility = if (isLoading) View.VISIBLE else View.GONE
+    }
+
+    private fun observeLoading() {
+        dashboardViewModel.isLoading.observe(viewLifecycleOwner) {
+            showLoading(it)
+        }
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        observeLoading()
+
+        binding.cardChoose.setOnClickListener {
+            val uploadModalBottomSheet = UploadModalBottomSheet.newInstance()
+            uploadModalBottomSheet.uploadOptionListener =
+                object : UploadModalBottomSheet.UploadOptionListener {
+                    override fun onCameraSelected() {
+                        startCameraX()
+                    }
+
+                    override fun onGallerySelected() {
+                        startGallery()
+                    }
+                }
+            uploadModalBottomSheet.show(childFragmentManager, "UploadModalBottomSheet")
+        }
+
+        binding.etDesc.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                validateInputs()
+            }
+
+            override fun afterTextChanged(s: Editable?) {}
+        })
+
+        binding.btnUpload.setOnClickListener {
+            uploadImage()
+        }
+
+        validateInputs()
     }
 
     private fun startCameraX() {
         val intent = Intent(requireContext(), CameraActivity::class.java)
         launcherIntentCameraX.launch(intent)
     }
+
     private val launcherIntentCameraX = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
     ) {
@@ -93,10 +157,33 @@ class DashboardFragment : Fragment(), UploadModalBottomSheet.UploadDialogListene
             showImage()
         }
     }
+
     private fun showImage() {
         currentImageUri?.let {
             Log.d("Image URI", "showImage: $it")
-            binding.ivPlaceholder.setImageURI(it)
+
+            Glide.with(requireContext())
+                .load(currentImageUri)
+                .into(binding.ivPlaceholder)
         }
+    }
+
+    private fun startGallery() {
+        launcherGallery.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
+    }
+
+    private val launcherGallery = registerForActivityResult(
+        ActivityResultContracts.PickVisualMedia()
+    ) { uri: Uri? ->
+        if (uri != null) {
+            currentImageUri = uri
+            showImage()
+        } else {
+            Log.d("Photo Picker", "No media selected")
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
     }
 }

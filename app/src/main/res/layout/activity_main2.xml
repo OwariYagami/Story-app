@@ -8,12 +8,11 @@
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/nav_view"
-        style="@style/Widget.Material3.BottomNavigationView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="0dp"
         android:layout_marginEnd="0dp"
-        app:itemIconTint="@color/blue"
+        app:itemIconTint="@color/bottom_nav_icon_color"
         app:itemTextAppearanceActive="@font/worksans_medium"
         app:itemTextAppearanceInactive="@font/worksans_light"
         android:background="@color/white"

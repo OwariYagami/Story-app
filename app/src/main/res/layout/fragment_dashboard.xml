@@ -84,7 +84,7 @@
             app:strokeWidth="1dp">
 
             <EditText
-                android:id="@+id/et_pesan"
+                android:id="@+id/et_desc"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="#00000000"
@@ -97,21 +97,31 @@
                 android:textColorHint="#80000000"
                 android:textSize="16sp" />
         </com.google.android.material.card.MaterialCardView>
-
-        <com.overdevx.mystoryapp.customview.MyButton
-            android:id="@+id/btn_login"
-            android:layout_width="match_parent"
-            android:layout_height="55dp"
+            <com.overdevx.mystoryapp.customview.MyButtonSubmit
+                android:id="@+id/btn_upload"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_marginTop="20dp"
+                android:enabled="false"
+                android:fontFamily="@font/worksans_semibold"
+                android:textAllCaps="false"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/card_desc"
+                app:layout_constraintVertical_bias="0"/>
+        <com.google.android.material.progressindicator.CircularProgressIndicator
+            android:id="@+id/progressindicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            android:visibility="gone"
             android:layout_marginTop="20dp"
-            android:enabled="false"
-            android:fontFamily="@font/worksans_semibold"
-            android:textAllCaps="false"
-            android:textSize="18sp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:indicatorColor="@color/blue"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/card_desc"
-            app:layout_constraintVertical_bias="0" />
+            app:layout_constraintTop_toBottomOf="@+id/btn_upload" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
