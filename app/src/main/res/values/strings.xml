@@ -23,4 +23,6 @@
     <string name="gallery">Gallery</string>
     <string name="take_photo">Take Photo</string>
     <string name="bookmark">Bookmark</string>
+    <string name="enjoy_your_story">Enjoy your\nstory</string>
+    <string name="desc_img1">Lorem ipsum dolor sit amet, ectetur \nadipiscing elit</string>
 </resources>

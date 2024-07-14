@@ -46,7 +46,7 @@ class SplashScreenActivity : AppCompatActivity() {
             if (token.isNotEmpty()) {
                 startActivity(Intent(this@SplashScreenActivity, MainActivity2::class.java))
             } else {
-                startActivity(Intent(this@SplashScreenActivity, LoginActivity::class.java))
+                startActivity(Intent(this@SplashScreenActivity, OnboardingActivity::class.java))
             }
             finish()
         }

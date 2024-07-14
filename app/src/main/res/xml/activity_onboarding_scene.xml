@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MotionScene 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:motion="http://schemas.android.com/apk/res-auto">
+
+    <Transition
+        motion:constraintSetEnd="@+id/end"
+        motion:constraintSetStart="@id/start"
+        motion:duration="2000"
+        motion:motionInterpolator="easeIn"
+        motion:autoTransition="animateToEnd">
+       <KeyFrameSet>
+           <!-- Key position for iv_img1 -->
+           <KeyPosition
+               motion:motionTarget="@+id/iv_img1"
+               motion:framePosition="50"
+               motion:percentX="0.5"
+               motion:percentY="0.5"/>
+
+           <!-- Key position for constraintLayout2, starts after iv_img1 has moved -->
+           <KeyPosition
+               motion:motionTarget="@+id/constraintLayout2"
+               motion:framePosition="75"
+               motion:percentX="1.0"
+               motion:percentY="1.0"/>
+       </KeyFrameSet>
+    </Transition>
+
+    <ConstraintSet android:id="@+id/start">
+
+        <Constraint
+            android:id="@+id/iv_img1"
+            motion:layout_constraintStart_toEndOf="parent"
+            android:layout_width="wrap_content"
+            android:layout_height="390dp"
+            motion:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="30dp" />
+        <Constraint
+            android:id="@+id/constraintLayout2"
+            motion:layout_constraintStart_toEndOf="parent"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            motion:layout_constraintBottom_toBottomOf="parent"
+            motion:layout_constraintTop_toBottomOf="@+id/iv_img1"
+            android:layout_marginTop="50dp" />
+    </ConstraintSet>
+
+    <ConstraintSet android:id="@+id/end">
+
+        <Constraint
+            android:id="@+id/iv_img1"
+            motion:layout_constraintStart_toStartOf="parent"
+            android:layout_width="match_parent"
+            android:layout_height="390dp"
+            motion:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="30dp" />
+        <Constraint
+            android:id="@+id/constraintLayout2"
+            motion:layout_constraintStart_toStartOf="parent"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            motion:layout_constraintBottom_toBottomOf="parent"
+            motion:layout_constraintTop_toBottomOf="@+id/iv_img1"
+            android:layout_marginTop="50dp" />
+    </ConstraintSet>
+</MotionScene>
