@@ -6,20 +6,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background"
-    android:padding="25dp"
     android:fitsSystemWindows="true"
+    android:padding="25dp"
     tools:context=".auth.LoginActivity">
 
     <ImageButton
-        android:layout_marginTop="10dp"
         android:id="@+id/btn_back"
         android:layout_width="40dp"
         android:layout_height="40dp"
+        android:layout_marginTop="10dp"
         android:background="@drawable/bg_circular_blue"
         android:src="@drawable/ic_back"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tv_login"
@@ -44,10 +43,10 @@
         app:layout_constraintTop_toBottomOf="@+id/tv_login" />
 
     <TextView
-        android:layout_marginTop="10dp"
         android:id="@+id/tv_email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:fontFamily="@font/worksans_semibold"
         android:includeFontPadding="false"
         android:text="@string/email"
@@ -98,12 +97,11 @@
         android:layout_width="match_parent"
         android:layout_height="55dp"
         android:layout_marginTop="10dp"
-        android:fontFamily="@font/worksans_semibold"
-        android:textSize="18sp"
-        android:textAllCaps="false"
         android:enabled="false"
-        app:layout_constraintTop_toBottomOf="@+id/et_password"
-         />
+        android:fontFamily="@font/worksans_semibold"
+        android:textAllCaps="false"
+        android:textSize="18sp"
+        app:layout_constraintTop_toBottomOf="@+id/et_password" />
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -142,13 +140,15 @@
         android:id="@+id/progressindicator"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:indeterminate="true"
         android:visibility="gone"
-        android:layout_marginTop="20dp"
         app:indicatorColor="@color/blue"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
