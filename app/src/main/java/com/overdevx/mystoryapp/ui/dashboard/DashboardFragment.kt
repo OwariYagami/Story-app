@@ -9,6 +9,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
@@ -16,6 +18,8 @@ import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.overdevx.mystoryapp.MainActivity2
 import com.overdevx.mystoryapp.R
 import com.overdevx.mystoryapp.data.bottomsheet.UploadModalBottomSheet
 import com.overdevx.mystoryapp.data.reduceFileImage
@@ -62,12 +66,9 @@ class DashboardFragment : Fragment() {
         dashboardViewModel.uploadResult.observe(viewLifecycleOwner) { response ->
             if (response != null) {
                 if (response.error == false) {
-                    Toast.makeText(requireContext(), "Upload Successful", Toast.LENGTH_SHORT).show()
-                    binding.etDesc.setText("")
-                    binding.ivPlaceholder.setImageResource(R.drawable.ic_add_image)
-                    dashboardViewModel.uploadResult.value = null
+                    showSuccessDialog()
                 } else {
-                    Toast.makeText(requireContext(), "Upload Failed", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), "Upload Failed :${response.message}", Toast.LENGTH_SHORT).show()
                 }
             }
         }
@@ -107,7 +108,27 @@ class DashboardFragment : Fragment() {
             showLoading(it)
         }
     }
+    private fun showSuccessDialog() {
 
+        val dialogView: View =
+            LayoutInflater.from(requireContext()).inflate(R.layout.success_dialog_layout, null)
+
+
+        val dialog = MaterialAlertDialogBuilder(requireContext())
+            .setView(dialogView)
+            .setCancelable(false)
+            .create()
+        val submitButton: Button = dialogView.findViewById(R.id.btn_oke)
+        val desc: TextView = dialogView.findViewById(R.id.tv_desc)
+        desc.text = getString(R.string.your_story_has_been_successfully_uploaded)
+        submitButton.setOnClickListener {
+            binding.etDesc.setText("")
+            binding.ivPlaceholder.setImageResource(R.drawable.ic_add_image)
+            dashboardViewModel.uploadResult.value = null
+            dialog.dismiss()
+        }
+        dialog.show()
+    }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         observeLoading()

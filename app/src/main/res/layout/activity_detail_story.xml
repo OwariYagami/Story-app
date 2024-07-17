@@ -10,6 +10,7 @@
     android:background="@color/background"
     tools:context=".uiapp.DetailStoryActivity">
 <com.google.android.material.card.MaterialCardView
+    android:transitionName="image"
     android:layout_marginTop="30dp"
     android:id="@+id/card_image"
     android:layout_width="match_parent"
@@ -48,6 +49,7 @@
 </com.google.android.material.card.MaterialCardView>
 
     <TextView
+        android:transitionName="title"
         android:id="@+id/tv_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -91,6 +93,7 @@
         app:layout_constraintTop_toTopOf="@+id/tv_title" />
 
     <TextView
+        android:transitionName="desc"
         android:textAlignment="textStart"
         android:id="@+id/tv_desc"
         android:layout_width="0dp"

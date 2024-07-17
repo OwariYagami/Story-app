@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="Theme.App" parent="Theme.Material3.DayNight.NoActionBar">
+    <style name="Theme.AppCompat." parent="Theme.Material3.DayNight.NoActionBar">
         <item name="bottomNavigationStyle">@style/Widget.App.BottomNavigationView</item>
     </style>
 
@@ -12,4 +12,15 @@
         <item name="colorSurface">@color/white</item>
         <item name="colorOnSurfaceVariant">@color/blueIcon</item>
     </style>
+
+    <style name="Theme.App" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/blue</item>
+        <item name="textAppearanceLabelLarge">@style/TextAppearance.App.Button</item>
+    </style>
+
+    <style name="TextAppearance.App.Button" parent="TextAppearance.Material3.LabelLarge">
+        <item name="fontFamily">@font/worksans_semibold</item>
+        <item name="android:fontFamily">@font/worksans_semibold</item>
+    </style>
+
 </resources>

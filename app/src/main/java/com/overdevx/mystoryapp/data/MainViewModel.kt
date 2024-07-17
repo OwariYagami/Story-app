@@ -26,6 +26,9 @@ class MainViewModel(private val userRepository: UserRepository) : ViewModel() {
     private val _stories = MutableLiveData<List<ListStoryItem>>()
     val stories: LiveData<List<ListStoryItem>> get() = _stories
 
+    private val _userName = MutableLiveData<String?>()
+    val userName: LiveData<String?> get() = _userName
+
     fun fetchStories(page: Int, size: Int) {
         _isLoading.value = true
         viewModelScope.launch {
@@ -48,6 +51,14 @@ class MainViewModel(private val userRepository: UserRepository) : ViewModel() {
             userRepository.logout()
         }
     }
+
+    fun getName(){
+        viewModelScope.launch {
+           userRepository.getName().collect{name->
+               _userName.value=name
+           }
+        }
+    }
 }
 
 class MainViewModelFactory(private val context: Context) : ViewModelProvider.Factory {
@@ -62,11 +73,7 @@ class MainViewModelFactory(private val context: Context) : ViewModelProvider.Fac
     }
 
     private fun createRepositoryWithToken(dataStoreManager: DataStoreManager): UserRepository {
-        // Create a coroutine scope for the factory
-        val scope = CoroutineScope(Dispatchers.IO)
         var userRepository: UserRepository? = null
-
-        // Run a blocking coroutine to wait for the token
         runBlocking {
             val token = dataStoreManager.userToken.firstOrNull() ?: ""
             val apiService = ApiConfig.getApiServicesWithToken(token)

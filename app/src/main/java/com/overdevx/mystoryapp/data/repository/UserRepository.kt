@@ -35,6 +35,10 @@ class UserRepository(private val apiService: ApiServices,private val dataStoreMa
         return dataStoreManager.userToken
     }
 
+    fun getName(): Flow<String?>{
+        return dataStoreManager.userName
+    }
+
     suspend fun uploadImage(file: MultipartBody.Part, description: RequestBody): ResponseUpload {
         return apiService.uploadImage(file, description)
     }

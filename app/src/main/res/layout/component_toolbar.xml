@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:elevation="5dp">
+    <RelativeLayout
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:layout_marginTop="16dp"
+        app:layout_collapseMode="pin"
+        >
+        <TextView
+            android:layout_marginStart="16dp"
+            android:id="@+id/toolbar_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:fontFamily="@font/worksans_semibold"
+            android:text="Selamat Pagi"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            app:layout_collapseMode="pin"
+            app:layout_scrollFlags="scroll|enterAlwaysCollapsed" />
+
+        <TextView
+            android:layout_centerVertical="true"
+            android:id="@+id/toolbar_username"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="16dp"
+            android:fontFamily="@font/worksans_semibold"
+            android:text="Yagami"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            app:layout_collapseMode="pin"
+            app:layout_scrollFlags="scroll|enterAlwaysCollapsed" />
+
+        <View
+            android:id="@+id/view"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#1A000000"
+            android:layout_alignParentBottom="true" />
+    </RelativeLayout>
+
+</layout>

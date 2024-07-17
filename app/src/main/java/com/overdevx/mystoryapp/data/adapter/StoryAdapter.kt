@@ -1,5 +1,6 @@
 package com.overdevx.mystoryapp.data.adapter
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
@@ -7,12 +8,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.app.ActivityOptionsCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.android.material.card.MaterialCardView
 import com.overdevx.mystoryapp.R
 import com.overdevx.mystoryapp.data.response.ListStoryItem
 import com.overdevx.mystoryapp.uiapp.DetailStoryActivity
+import androidx.core.util.Pair
 
 class StoryAdapter(private var storyList: List<ListStoryItem?>?): RecyclerView.Adapter<StoryAdapter.storyViewHolder>(){
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): storyViewHolder {
@@ -34,12 +37,22 @@ class StoryAdapter(private var storyList: List<ListStoryItem?>?): RecyclerView.A
         }
 
         holder.card.setOnClickListener {
+            val optionsCompat: ActivityOptionsCompat =
+                ActivityOptionsCompat.makeSceneTransitionAnimation(
+                   holder.context as Activity,
+                    Pair(holder.storyName, "title"),
+                    Pair(holder.storyDesc, "desc"),
+                    Pair(holder.card, "image"),
+                )
+            val currentStory = ListStoryItem(
+                name = currentStorypos?.name,
+                description = currentStorypos?.description,
+                createdAt = currentStorypos?.createdAt,
+                photoUrl = currentStorypos?.photoUrl
+            )
             val intent = Intent(holder.context, DetailStoryActivity::class.java)
-            intent.putExtra("name", currentStorypos?.name)
-            intent.putExtra("desc", currentStorypos?.description)
-            intent.putExtra("created", currentStorypos?.createdAt)
-            intent.putExtra("img", currentStorypos?.photoUrl)
-            holder.context.startActivity(intent)
+            intent.putExtra("story", currentStory)
+            holder.context.startActivity(intent,optionsCompat.toBundle())
         }
     }
 

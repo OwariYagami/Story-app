@@ -1,6 +1,8 @@
 package com.overdevx.mystoryapp.data.response
 
 import com.google.gson.annotations.SerializedName
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
 
 data class ResponseListStory(
 
@@ -13,7 +15,7 @@ data class ResponseListStory(
 	@field:SerializedName("message")
 	val message: String? = null
 )
-
+@Parcelize
 data class ListStoryItem(
 
 	@field:SerializedName("photoUrl")
@@ -36,4 +38,4 @@ data class ListStoryItem(
 
 	@field:SerializedName("lat")
 	val lat: Double? = null
-)
+) : Parcelable

@@ -17,8 +17,6 @@ class MyPasswordEditText @JvmOverloads constructor(
 ) : AppCompatEditText(context, attrs), View.OnTouchListener {
 
     private var startIcon: Drawable
-    private var errorIcon: Drawable
-    private var validIcon: Drawable
     private var showPasswordIcon: Drawable
     private var hidePasswordIcon: Drawable
     private var isPasswordVisible: Boolean = false
@@ -29,10 +27,10 @@ class MyPasswordEditText @JvmOverloads constructor(
     init {
         setBackgroundResource(R.drawable.rounded_edit_text_background)
         startIcon = ContextCompat.getDrawable(context, R.drawable.ic_password) as Drawable
-        errorIcon = ContextCompat.getDrawable(context, R.drawable.ic_error) as Drawable
-        validIcon = ContextCompat.getDrawable(context, R.drawable.ic_check) as Drawable
-        showPasswordIcon = ContextCompat.getDrawable(context, R.drawable.ic_show_password) as Drawable
-        hidePasswordIcon = ContextCompat.getDrawable(context, R.drawable.ic_hide_password) as Drawable
+        showPasswordIcon =
+            ContextCompat.getDrawable(context, R.drawable.ic_show_password) as Drawable
+        hidePasswordIcon =
+            ContextCompat.getDrawable(context, R.drawable.ic_hide_password) as Drawable
 
         setCompoundDrawablesWithIntrinsicBounds(startIcon, null, showPasswordIcon, null)
         val drawablePadding = resources.getDimensionPixelSize(R.dimen.drawablepadding)
@@ -62,8 +60,11 @@ class MyPasswordEditText @JvmOverloads constructor(
 
     private fun validatePassword(password: String) {
         isValid = password.length >= 8
-        currentEndIcon = if (isValid) validIcon else errorIcon
-        setButtonDrawables(endOfTheText = currentEndIcon)
+        if (isValid) {
+            error = null
+        } else {
+            setError(context.getString(R.string.password_info), null)
+        }
     }
 
     private fun setButtonDrawables(
@@ -73,7 +74,12 @@ class MyPasswordEditText @JvmOverloads constructor(
         bottomOfTheText: Drawable? = null
     ) {
         val endIcon = if (isPasswordVisible) hidePasswordIcon else showPasswordIcon
-        setCompoundDrawablesWithIntrinsicBounds(startOfTheText, topOfTheText, endIcon, bottomOfTheText)
+        setCompoundDrawablesWithIntrinsicBounds(
+            startOfTheText,
+            topOfTheText,
+            endIcon,
+            bottomOfTheText
+        )
     }
 
     override fun onTouch(v: View?, event: MotionEvent): Boolean {
@@ -90,7 +96,8 @@ class MyPasswordEditText @JvmOverloads constructor(
 
     private fun togglePasswordVisibility() {
         isPasswordVisible = !isPasswordVisible
-        transformationMethod = if (isPasswordVisible) null else android.text.method.PasswordTransformationMethod.getInstance()
+        transformationMethod =
+            if (isPasswordVisible) null else android.text.method.PasswordTransformationMethod.getInstance()
         setButtonDrawables(endOfTheText = currentEndIcon)
         setSelection(text?.length ?: 0)
     }

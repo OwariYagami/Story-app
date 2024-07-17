@@ -25,4 +25,20 @@
     <string name="bookmark">Bookmark</string>
     <string name="enjoy_your_story">Enjoy your\nstory</string>
     <string name="desc_img1">Lorem ipsum dolor sit amet, ectetur \nadipiscing elit</string>
+    <string name="success">Success</string>
+    <string name="success_desc">Your login is successfull</string>
+    <string name="okay">Okay</string>
+    <string name="oops_this_feature_is_currently_under_development">Oops, this feature is currently under development</string>
+    <string name="oops_no_data_available_to_display">Oops, no data available to display</string>
+    <string name="your_story_has_been_successfully_uploaded">Your story has been successfully uploaded!</string>
+    <string name="your_account_has_been_successfully_created">Your account has been successfully created</string>
+    <string name="logout">Log Out</string>
+    <string name="logout_desc">Are you sure you want to log out?</string>
+    <string name="no">No, continue to app</string>
+    <string name="yes">Yes, log me out</string>
+    <string name="Menu">Menu</string>
+    <string name="profile">Profile</string>
+
+    <string name="dateFormat">Uploaded on %1$s</string>
+    <string name="password_info">Password must be more than 8 characters long</string>
 </resources>

@@ -27,11 +27,7 @@
         <activity
             android:name=".auth.OnboardingActivity"
             android:exported="true">
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
 
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
         </activity>
         <activity
             android:name=".ui.dashboard.CameraActivity"
@@ -42,7 +38,11 @@
         <activity
             android:name=".auth.SplashScreenActivity"
             android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".auth.RegisterActivity"

@@ -25,6 +25,12 @@ class UserViewModel(private val userRepository: UserRepository) : ViewModel() {
     private val _loginResult = MutableLiveData<ResponseLogin>()
     val loginResult: LiveData<ResponseLogin> get() = _loginResult
 
+    private val _loginError = MutableLiveData<String>()
+    val loginError: LiveData<String> = _loginError
+
+    private val _registerError = MutableLiveData<String>()
+    val registerError: LiveData<String> = _registerError
+
     private val _token = MutableLiveData<String?>()
     val token: LiveData<String?> get() = _token
 
@@ -35,7 +41,8 @@ class UserViewModel(private val userRepository: UserRepository) : ViewModel() {
                 val response = userRepository.register(name, email, password)
                 _registerResult.value = response
             } catch (e: Exception) {
-                Log.e("RETROFIT", "Gagal Login ${e.message}")
+                Log.e("RETROFIT", "Login Failed ${e.message}")
+                _registerError.value = "Login failed: ${e.message}"
             } finally {
                 _isLoading.value=false
             }
@@ -50,6 +57,7 @@ class UserViewModel(private val userRepository: UserRepository) : ViewModel() {
                 _loginResult.value = response
             } catch (e: Exception) {
                 Log.e("RETROFIT", "Gagal Login ${e.message}")
+                _loginError.value = "Login failed: ${e.message}"
             }finally {
                 _isLoading.value=false
             }

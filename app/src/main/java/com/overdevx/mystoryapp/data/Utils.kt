@@ -16,6 +16,7 @@ import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileOutputStream
 import java.io.InputStream
+import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -106,4 +107,10 @@ fun rotateImage(source: Bitmap, angle: Float): Bitmap? {
     return Bitmap.createBitmap(
         source, 0, 0, source.width, source.height, matrix, true
     )
+}
+
+fun String.withDateFormat(): String {
+    val format = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.US)
+    val date = format.parse(this) as Date
+    return DateFormat.getDateInstance(DateFormat.FULL).format(date)
 }

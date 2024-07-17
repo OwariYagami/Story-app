@@ -15,21 +15,22 @@ import android.widget.FrameLayout
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.overdevx.mystoryapp.R
 import com.overdevx.mystoryapp.databinding.ChooseBottomSheetLayoutBinding
+import com.overdevx.mystoryapp.databinding.ProfileBottomSheetLayoutBinding
 import com.overdevx.mystoryapp.ui.dashboard.CameraActivity
 import java.io.File
 
-class UploadModalBottomSheet() :
+class ProfileModalBottomSheet() :
     BottomSheetDialogFragment() {
-    lateinit var binding: ChooseBottomSheetLayoutBinding
-    var uploadOptionListener: UploadOptionListener? = null
-    interface UploadOptionListener {
-        fun onCameraSelected()
-        fun onGallerySelected()
+    lateinit var binding: ProfileBottomSheetLayoutBinding
+    var profileOptionListener: ProfileOptionListener? = null
+    interface ProfileOptionListener {
+        fun onProfileSelected()
+        fun onLogoutSelected()
     }
 
     companion object {
-        fun newInstance(): UploadModalBottomSheet {
-            return UploadModalBottomSheet()
+        fun newInstance(): ProfileModalBottomSheet {
+            return ProfileModalBottomSheet()
         }
     }
 
@@ -38,19 +39,19 @@ class UploadModalBottomSheet() :
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = ChooseBottomSheetLayoutBinding.bind(
+        binding = ProfileBottomSheetLayoutBinding.bind(
             inflater.inflate(
-                R.layout.choose_bottom_sheet_layout,
+                R.layout.profile_bottom_sheet_layout,
                 container
             )
         )
 
-        binding.materialCardView.setOnClickListener {
-            uploadOptionListener?.onCameraSelected()
+        binding.cvProfile.setOnClickListener {
+            profileOptionListener?.onProfileSelected()
             dismiss()
         }
-        binding.materialCardView2.setOnClickListener {
-            uploadOptionListener?.onGallerySelected()
+        binding.cvLogout.setOnClickListener {
+            profileOptionListener?.onLogoutSelected()
             dismiss()
         }
         return binding.root
