@@ -9,8 +9,6 @@ import android.widget.RemoteViewsService
 import androidx.core.os.bundleOf
 import com.overdevx.mystoryapp.R
 import com.overdevx.mystoryapp.data.repository.UserRepository
-import com.overdevx.mystoryapp.data.retrofit.ApiConfig
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 import java.net.URL
 
@@ -23,8 +21,6 @@ internal class StackRemoteViewsFactory(private val mContext: Context, private va
     override fun onDataSetChanged() {
         mWidgetItems.clear()
         runBlocking {
-            val token = userRepository.getToken().first() ?: ""
-            val apiService = ApiConfig.getApiServicesWithToken(token)
             try {
                 val response = userRepository.getListStory(1, 10)
                 if (response.error==false) {
@@ -41,11 +37,6 @@ internal class StackRemoteViewsFactory(private val mContext: Context, private va
                 e.printStackTrace()
             }
         }
-//        mWidgetItems.add(BitmapFactory.decodeResource(mContext.resources, R.drawable.img))
-//        mWidgetItems.add(BitmapFactory.decodeResource(mContext.resources, R.drawable.pp_user))
-//        mWidgetItems.add(BitmapFactory.decodeResource(mContext.resources, R.drawable.img_slide_1))
-//        mWidgetItems.add(BitmapFactory.decodeResource(mContext.resources, R.drawable.img))
-//        mWidgetItems.add(BitmapFactory.decodeResource(mContext.resources, R.drawable.img))
 
     }
 

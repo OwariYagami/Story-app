@@ -59,5 +59,9 @@
     <string name="login_failed">Gagal masuk: %1$s</string>
     <string name="register_failed">Gagal mendaftar: %1$s</string>
     <string name="selamat_pagi">Selamat Pagi</string>
-    <string name="empty_text">Stack Image</string>
+    <string name="empty_text">TIDAK ADA DATA</string>
+
+    <string name="appwidget_text">STACK IMAGE</string>
+    <string name="add_widget">Tambah widget</string>
+    <string name="app_widget_description">Widget kumpulan gambar</string>
 </resources>

@@ -1,5 +1,6 @@
 package com.overdevx.mystoryapp.auth
 
+import android.animation.ObjectAnimator
 import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
@@ -33,7 +34,7 @@ class RegisterActivity : AppCompatActivity() {
         }
         userViewModel =
             ViewModelProvider(this, UserViewModelFactory(this)).get(UserViewModel::class.java)
-
+        playAnimation()
         observerRegister()
         observeLoading()
         binding.etName.addTextChangedListener(textWatcher)
@@ -127,5 +128,13 @@ class RegisterActivity : AppCompatActivity() {
             nameValid = true
         }
         binding.btnRegister.isEnabled = emailValid && passwordValid && nameValid
+    }
+
+    private fun playAnimation() {
+        ObjectAnimator.ofFloat(binding.imageView2, View.TRANSLATION_X, -30f, 30f).apply {
+            duration = 6000
+            repeatCount = ObjectAnimator.INFINITE
+            repeatMode = ObjectAnimator.REVERSE
+        }.start()
     }
 }

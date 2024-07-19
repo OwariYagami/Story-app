@@ -17,8 +17,8 @@ import com.overdevx.mystoryapp.R
 class ImageBannerWidget : AppWidgetProvider() {
     companion object {
 
-        private const val TOAST_ACTION = "com.dicoding.picodiploma.TOAST_ACTION"
-        const val EXTRA_ITEM = "com.dicoding.picodiploma.EXTRA_ITEM"
+        private const val TOAST_ACTION = "com.overdevx.mystoryapp.TOAST_ACTION"
+        const val EXTRA_ITEM = "com.overdevx.mystoryapp.EXTRA_ITEM"
 
         private fun updateAppWidget(context: Context, appWidgetManager: AppWidgetManager, appWidgetId: Int) {
             val intent = Intent(context, StackWidgetService::class.java)
@@ -46,7 +46,7 @@ class ImageBannerWidget : AppWidgetProvider() {
     }
 
     override fun onUpdate(context: Context, appWidgetManager: AppWidgetManager, appWidgetIds: IntArray) {
-        // There may be multiple widgets active, so update all of them
+
         for (appWidgetId in appWidgetIds) {
             updateAppWidget(context, appWidgetManager, appWidgetId)
         }

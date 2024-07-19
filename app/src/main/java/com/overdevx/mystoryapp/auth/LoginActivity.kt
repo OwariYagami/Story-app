@@ -1,5 +1,6 @@
 package com.overdevx.mystoryapp.auth
 
+import android.animation.ObjectAnimator
 import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
@@ -34,6 +35,7 @@ class LoginActivity : AppCompatActivity() {
 
         userViewModel =
             ViewModelProvider(this, UserViewModelFactory(this)).get(UserViewModel::class.java)
+        playAnimation()
 
         observeLogin()
 
@@ -126,5 +128,13 @@ class LoginActivity : AppCompatActivity() {
             finish()
         }
         dialog.show()
+    }
+
+    private fun playAnimation() {
+        ObjectAnimator.ofFloat(binding.imageView2, View.TRANSLATION_X, -30f, 30f).apply {
+            duration = 6000
+            repeatCount = ObjectAnimator.INFINITE
+            repeatMode = ObjectAnimator.REVERSE
+        }.start()
     }
 }

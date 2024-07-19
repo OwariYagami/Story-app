@@ -57,6 +57,6 @@
     <string name="selamat_pagi">Good Morning</string>
     <string name="appwidget_text">STACK IMAGE</string>
     <string name="add_widget">Add widget</string>
-    <string name="app_widget_description">This is an app widget description</string>
+    <string name="app_widget_description">Stack image widget</string>
     <string name="empty_text">NO DATA</string>
 </resources>
