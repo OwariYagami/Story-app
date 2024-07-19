@@ -9,7 +9,7 @@
         style="@style/Widget.Material3.CardView.Filled"
         android:id="@+id/card_item"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="220dp"
         app:cardCornerRadius="25dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -24,16 +24,16 @@
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/img_item"
+                android:src="@drawable/img_placeholder"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"/>
 
-            <LinearLayout
+            <RelativeLayout
                 android:id="@+id/relative_layout"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:padding="16dp"
                 android:orientation="vertical"
                 android:background="@drawable/bg_gradient_item"
@@ -46,11 +46,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/this_is_title"
+                    android:layout_above="@id/tv_description"
                     android:fontFamily="@font/worksans_semibold"
                     android:textSize="20sp"
                     android:textColor="@color/white"/>
 
                 <TextView
+                    android:layout_alignParentBottom="true"
                     android:maxLines="1"
                     android:ellipsize="marquee"
                     android:id="@+id/tv_description"
@@ -60,7 +62,7 @@
                     android:fontFamily="@font/worksans_regular"
                     android:textSize="16sp"
                     android:textColor="@color/white"/>
-            </LinearLayout>
+            </RelativeLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

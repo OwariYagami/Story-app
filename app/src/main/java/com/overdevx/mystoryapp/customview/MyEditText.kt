@@ -2,7 +2,6 @@ package com.overdevx.mystoryapp.customview
 
 import android.content.Context
 import android.graphics.Canvas
-import android.graphics.Rect
 import android.graphics.drawable.Drawable
 import android.text.Editable
 import android.text.TextWatcher
@@ -26,11 +25,11 @@ class MyEditText @JvmOverloads constructor(
     init {
 
         setBackgroundResource(R.drawable.rounded_edit_text_background)
-        startIcon = ContextCompat.getDrawable(context, R.drawable.ic_email) as Drawable // Set the email icon
-        errorIcon = ContextCompat.getDrawable(context, R.drawable.ic_error) as Drawable // Set the error icon
-        validIcon = ContextCompat.getDrawable(context, R.drawable.ic_check) as Drawable // Set the valid icon
+        startIcon = ContextCompat.getDrawable(context, R.drawable.ic_email) as Drawable
+        errorIcon = ContextCompat.getDrawable(context, R.drawable.ic_error) as Drawable
+        validIcon = ContextCompat.getDrawable(context, R.drawable.ic_check) as Drawable
 
-        setCompoundDrawablesWithIntrinsicBounds(startIcon, null, null, null) // Set the email icon at the start
+        setCompoundDrawablesWithIntrinsicBounds(startIcon, null, null, null)
         val drawablePadding = resources.getDimensionPixelSize(R.dimen.drawablepadding)
         setCompoundDrawablePadding(drawablePadding)
         setOnTouchListener(this)
@@ -58,7 +57,7 @@ class MyEditText @JvmOverloads constructor(
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
-        hint = "Input your email address"
+        hint = context.getString(R.string.input_your_email_address)
         textAlignment = View.TEXT_ALIGNMENT_VIEW_START
     }
 

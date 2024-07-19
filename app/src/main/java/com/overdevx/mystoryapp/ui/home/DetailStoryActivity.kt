@@ -1,4 +1,4 @@
-package com.overdevx.mystoryapp.uiapp
+package com.overdevx.mystoryapp.ui.home
 
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
@@ -9,7 +9,7 @@ import androidx.core.view.updatePadding
 import com.bumptech.glide.Glide
 import com.overdevx.mystoryapp.R
 import com.overdevx.mystoryapp.data.response.ListStoryItem
-import com.overdevx.mystoryapp.data.withDateFormat
+import com.overdevx.mystoryapp.data.utils.withDateFormat
 import com.overdevx.mystoryapp.databinding.ActivityDetailStoryBinding
 
 class DetailStoryActivity : AppCompatActivity() {
@@ -32,7 +32,7 @@ class DetailStoryActivity : AppCompatActivity() {
                 getString(R.string.dateFormat, story.createdAt?.withDateFormat() ?: "")
             Glide.with(this)
                 .load(story.photoUrl)
-                .placeholder(R.drawable.img_item)
+                .placeholder(R.drawable.img_placeholder)
                 .into(binding.ivImage)
         }
 

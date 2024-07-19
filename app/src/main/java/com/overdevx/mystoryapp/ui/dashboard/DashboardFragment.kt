@@ -19,19 +19,16 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.overdevx.mystoryapp.MainActivity2
 import com.overdevx.mystoryapp.R
 import com.overdevx.mystoryapp.data.bottomsheet.UploadModalBottomSheet
-import com.overdevx.mystoryapp.data.reduceFileImage
-import com.overdevx.mystoryapp.data.uriToFile
+import com.overdevx.mystoryapp.data.utils.reduceFileImage
+import com.overdevx.mystoryapp.data.utils.uriToFile
 import com.overdevx.mystoryapp.databinding.FragmentDashboardBinding
 import com.overdevx.mystoryapp.ui.dashboard.CameraActivity.Companion.CAMERAX_RESULT
 import okhttp3.MediaType.Companion.toMediaType
-import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
-import java.io.File
 
 class DashboardFragment : Fragment() {
 

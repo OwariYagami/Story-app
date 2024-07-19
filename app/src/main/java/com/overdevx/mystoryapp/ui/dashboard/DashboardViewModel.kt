@@ -7,13 +7,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import com.overdevx.mystoryapp.data.MainViewModel
 import com.overdevx.mystoryapp.data.datastore.DataStoreManager
 import com.overdevx.mystoryapp.data.repository.UserRepository
 import com.overdevx.mystoryapp.data.response.ResponseUpload
 import com.overdevx.mystoryapp.data.retrofit.ApiConfig
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
@@ -56,11 +53,8 @@ class DashboardViewModelFactory(private val context: Context) : ViewModelProvide
     }
 
     private fun createRepositoryWithToken(dataStoreManager: DataStoreManager): UserRepository {
-        // Create a coroutine scope for the factory
-        val scope = CoroutineScope(Dispatchers.IO)
         var userRepository: UserRepository? = null
 
-        // Run a blocking coroutine to wait for the token
         runBlocking {
             val token = dataStoreManager.userToken.firstOrNull() ?: ""
             val apiService = ApiConfig.getApiServicesWithToken(token)

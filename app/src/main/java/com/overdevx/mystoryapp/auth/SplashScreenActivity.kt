@@ -12,7 +12,6 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.overdevx.mystoryapp.MainActivity
-import com.overdevx.mystoryapp.MainActivity2
 import com.overdevx.mystoryapp.databinding.ActivitySplashScreenBinding
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -48,7 +47,7 @@ class SplashScreenActivity : AppCompatActivity() {
         lifecycleScope.launch {
             delay(1000)
             if (token.isNotEmpty()) {
-                startActivity(Intent(this@SplashScreenActivity, MainActivity2::class.java))
+                startActivity(Intent(this@SplashScreenActivity, MainActivity::class.java))
             } else {
                 startActivity(Intent(this@SplashScreenActivity, OnboardingActivity::class.java))
             }

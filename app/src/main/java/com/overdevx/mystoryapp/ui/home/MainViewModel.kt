@@ -1,4 +1,4 @@
-package com.overdevx.mystoryapp.data
+package com.overdevx.mystoryapp.ui.home
 
 import android.content.Context
 import android.util.Log
@@ -7,14 +7,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import com.overdevx.mystoryapp.auth.UserViewModel
 import com.overdevx.mystoryapp.data.datastore.DataStoreManager
 import com.overdevx.mystoryapp.data.repository.UserRepository
 import com.overdevx.mystoryapp.data.response.ListStoryItem
 import com.overdevx.mystoryapp.data.retrofit.ApiConfig
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking

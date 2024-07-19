@@ -1,7 +1,7 @@
 package com.overdevx.mystoryapp.data.response
 
-import com.google.gson.annotations.SerializedName
 import android.os.Parcelable
+import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 
 data class ResponseListStory(

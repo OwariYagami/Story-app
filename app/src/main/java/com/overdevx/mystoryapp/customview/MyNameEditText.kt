@@ -2,10 +2,7 @@ package com.overdevx.mystoryapp.customview
 
 import android.content.Context
 import android.graphics.Canvas
-import android.graphics.Rect
 import android.graphics.drawable.Drawable
-import android.text.Editable
-import android.text.TextWatcher
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
@@ -21,9 +18,9 @@ class MyNameEditText @JvmOverloads constructor(
     init {
 
         setBackgroundResource(R.drawable.rounded_edit_text_background)
-        startIcon = ContextCompat.getDrawable(context, R.drawable.ic_name) as Drawable // Set the email icon
+        startIcon = ContextCompat.getDrawable(context, R.drawable.ic_name) as Drawable
 
-        setCompoundDrawablesWithIntrinsicBounds(startIcon, null, null, null) // Set the email icon at the start
+        setCompoundDrawablesWithIntrinsicBounds(startIcon, null, null, null)
         val drawablePadding = resources.getDimensionPixelSize(R.dimen.drawablepadding)
         setCompoundDrawablePadding(drawablePadding)
         setOnTouchListener(this)
@@ -32,7 +29,7 @@ class MyNameEditText @JvmOverloads constructor(
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
-        hint = "Input your name"
+        hint = context.getString(R.string.input_your_name)
         textAlignment = View.TEXT_ALIGNMENT_VIEW_START
     }
 

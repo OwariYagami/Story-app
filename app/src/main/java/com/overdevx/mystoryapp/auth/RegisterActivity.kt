@@ -12,16 +12,12 @@ import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.overdevx.mystoryapp.MainActivity2
 import com.overdevx.mystoryapp.R
 import com.overdevx.mystoryapp.customview.MyEditText
 import com.overdevx.mystoryapp.customview.MyPasswordEditText
-import com.overdevx.mystoryapp.data.repository.UserRepository
-import com.overdevx.mystoryapp.data.retrofit.ApiConfig
 import com.overdevx.mystoryapp.databinding.ActivityRegisterBinding
 
 class RegisterActivity : AppCompatActivity() {
@@ -66,6 +62,13 @@ class RegisterActivity : AppCompatActivity() {
                showSuccessDialog()
             } else {
                 Toast.makeText(this, "Register failed : ${response.message}", Toast.LENGTH_SHORT)
+                    .show()
+            }
+        })
+
+        userViewModel.registerError.observe(this,Observer{message->
+            message?.let {
+                Toast.makeText(this, getString(R.string.register_failed,it), Toast.LENGTH_SHORT)
                     .show()
             }
         })

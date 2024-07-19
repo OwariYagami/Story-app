@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Aplikasi Story ku</string>
+    <string name="title_img1">Selamat Datang di StoryApp</string>
+    <string name="desc_img1">Temukan, buat, dan bagikan cerita Anda dengan komunitas yang bersemangat. Masuki dunia di mana setiap cerita berarti</string>
+    <string name="title_img2">Buat Cerita Anda</string>
+    <string name="desc_img2">Lepaskan kreativitas Anda dengan alat kami yang mudah digunakan. Tangkap momen Anda dan ubah menjadi cerita yang menarik</string>
+    <string name="title_img3">Hubungkan dan Bagikan</string>
+    <string name="desc_img3">Bagikan cerita Anda dengan teman dan pengikut. Jelajahi cerita dari seluruh dunia dan terhubung dengan individu yang berpikiran sama</string>
+
+    <string name="login">Masuk</string>
+    <string name="email">Email</string>
+    <string name="password">Sandi</string>
+    <string name="havent">Tidak punya akun? </string>
+    <string name="register">Daftar</string>
+    <string name="name">Nama</string>
+    <string name="have">"Sudah punya akun?"</string>
+    <string name="let_s_explore_the_worlds">Mari jelajahi\ndunia</string>
+    <string name="searchbarHint">Cari sesuatu...</string>
+    <string name="this_is_title">This is title</string>
+    <string name="description">Lorem ipsum dolor sit amet, consectual amigos lorem ipsum amigos lorem ipsum dolor sitametamigos</string>
+    <string name="createdat">Uploaded at 12 Aug 2023</string>
+    <string name="title_activity_main2">MainActivity2</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="write_description">Deskripsi...</string>
+    <string name="Add">Tambah Cerita</string>
+    <string name="upload_image">Unggah Gambar</string>
+    <string name="take_a_picture">Ambil Gambar</string>
+    <string name="gallery">Galeri</string>
+    <string name="take_photo">Ambil Gambar</string>
+    <string name="bookmark">Bookmark</string>
+
+    <string name="success">Berhasil</string>
+    <string name="success_desc">Anda berhasil login</string>
+    <string name="okay">Oke</string>
+    <string name="oops_this_feature_is_currently_under_development">Oops, fitur ini sedang dalam pengembangan</string>
+    <string name="oops_no_data_available_to_display">Oops, tidak ada data yang ditampilkan</string>
+    <string name="your_story_has_been_successfully_uploaded">Cerita anda berhasil di unggah!</string>
+    <string name="your_account_has_been_successfully_created">Berhasil membuat akun</string>
+    <string name="logout">Log Out</string>
+    <string name="logout_desc">Anda yakin ingin log out?</string>
+    <string name="no">Tidak, kembali ke aplikasi</string>
+    <string name="yes">Ya, keluarkan saya</string>
+    <string name="Menu">Menu</string>
+    <string name="profile">Profil</string>
+
+    <string name="dateFormat">Diunggah pada %1$s</string>
+    <string name="password_info">Password harus lebih dari 8 karakter</string>
+    <string name="change_lang">Ubah Bahasa</string>
+
+    <string name="fill_all_first">Isi terlebih dahulu</string>
+    <string name="input_your_email_address">Masukkan alamat email</string>
+    <string name="input_your_name">Masukkan nama anda</string>
+    <string name="input_your_password">Masukkan sandi anda</string>
+    <string name="submit">Unggah</string>
+
+    <string name="login_failed">Gagal masuk: %1$s</string>
+    <string name="register_failed">Gagal mendaftar: %1$s</string>
+    <string name="selamat_pagi">Selamat Pagi</string>
+    <string name="empty_text">Stack Image</string>
+</resources>

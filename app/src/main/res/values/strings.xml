@@ -23,8 +23,13 @@
     <string name="gallery">Gallery</string>
     <string name="take_photo">Take Photo</string>
     <string name="bookmark">Bookmark</string>
-    <string name="enjoy_your_story">Enjoy your\nstory</string>
-    <string name="desc_img1">Lorem ipsum dolor sit amet, ectetur \nadipiscing elit</string>
+    <string name="title_img1">Welcome to StoryApp</string>
+    <string name="desc_img1">Discover, create, and share your stories with a vibrant community. Dive into a world where every story matters</string>
+    <string name="title_img2">Create Your Stories</string>
+    <string name="desc_img2">Unleash your creativity with our easy-to-use tools. Capture your moments and transform them into engaging stories</string>
+    <string name="title_img3">Connect and Share</string>
+    <string name="desc_img3">Share your stories with friends and followers. Explore stories from around the world and connect with like-minded individuals</string>
+
     <string name="success">Success</string>
     <string name="success_desc">Your login is successfull</string>
     <string name="okay">Okay</string>
@@ -41,4 +46,17 @@
 
     <string name="dateFormat">Uploaded on %1$s</string>
     <string name="password_info">Password must be more than 8 characters long</string>
+    <string name="change_lang">Change Language</string>
+    <string name="fill_all_first">Fill all first</string>
+    <string name="input_your_email_address">Input your email address</string>
+    <string name="input_your_name">Input your name</string>
+    <string name="input_your_password">Input your password</string>
+    <string name="submit">Submit</string>
+    <string name="login_failed">Login failed: %1$s</string>
+    <string name="register_failed">Register failed: %1$s</string>
+    <string name="selamat_pagi">Good Morning</string>
+    <string name="appwidget_text">STACK IMAGE</string>
+    <string name="add_widget">Add widget</string>
+    <string name="app_widget_description">This is an app widget description</string>
+    <string name="empty_text">NO DATA</string>
 </resources>

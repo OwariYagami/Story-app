@@ -10,4 +10,10 @@
     <color name="thin">#F0F3F5</color>
     <color name="red">#D93030</color>
     <color name="red2">#BF2525</color>
+    <color name="md_theme_light_secondaryContainer">#3BA5B9</color>
+    <color name="light_blue_50">#FFE1F5FE</color>
+    <color name="light_blue_200">#FF81D4FA</color>
+    <color name="light_blue_600">#FF039BE5</color>
+    <color name="light_blue_900">#FF01579B</color>
+
 </resources>

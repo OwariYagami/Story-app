@@ -2,31 +2,23 @@ package com.overdevx.mystoryapp.ui.home
 
 import android.content.Intent
 import android.os.Bundle
+import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.TextView
 import android.widget.Toast
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import androidx.core.view.updatePadding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.overdevx.mystoryapp.R
 import com.overdevx.mystoryapp.auth.LoginActivity
-import com.overdevx.mystoryapp.data.MainViewModel
-import com.overdevx.mystoryapp.data.MainViewModelFactory
 import com.overdevx.mystoryapp.data.adapter.StoryAdapter
 import com.overdevx.mystoryapp.data.bottomsheet.ProfileModalBottomSheet
-import com.overdevx.mystoryapp.data.bottomsheet.UploadModalBottomSheet
 import com.overdevx.mystoryapp.databinding.FragmentHomeBinding
-import kotlinx.coroutines.launch
 
 class HomeFragment : Fragment() {
 
@@ -67,11 +59,16 @@ class HomeFragment : Fragment() {
             profilModalBottomSheet.profileOptionListener =
                 object : ProfileModalBottomSheet.ProfileOptionListener {
                     override fun onProfileSelected() {
-                        Toast.makeText(requireContext(), "Profile clicked", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(requireContext(), "Profile clicked", Toast.LENGTH_SHORT)
+                            .show()
                     }
 
                     override fun onLogoutSelected() {
                         showLogoutDialog()
+                    }
+
+                    override fun onLanguageSelected() {
+                        setupAction()
                     }
 
                 }
@@ -94,6 +91,7 @@ class HomeFragment : Fragment() {
         })
         return root
     }
+
     private fun showLogoutDialog() {
         val dialogView: View =
             LayoutInflater.from(requireContext()).inflate(R.layout.logout_dialog_layout, null)
@@ -106,7 +104,7 @@ class HomeFragment : Fragment() {
         val no: Button = dialogView.findViewById(R.id.btn_no)
         yes.setOnClickListener {
             mainViewModel.logout()
-            startActivity(Intent(requireContext(),LoginActivity::class.java))
+            startActivity(Intent(requireContext(), LoginActivity::class.java))
             dialog.dismiss()
             requireActivity().finish()
         }
@@ -115,16 +113,17 @@ class HomeFragment : Fragment() {
         }
         dialog.show()
     }
+
     private fun observeData() {
         mainViewModel.stories.observe(viewLifecycleOwner, Observer { data ->
             binding.recyclerItem.adapter = StoryAdapter(data)
-            if(data.isNullOrEmpty()){
-                binding.emptyLayout.root.visibility=View.VISIBLE
+            if (data.isNullOrEmpty()) {
+                binding.emptyLayout.root.visibility = View.VISIBLE
             }
         })
 
-        mainViewModel.userName.observe(viewLifecycleOwner,Observer{data ->
-            binding.toolbar.toolbarUsername.text=data.toString()
+        mainViewModel.userName.observe(viewLifecycleOwner, Observer { data ->
+            binding.toolbar.toolbarUsername.text = data.toString()
         })
     }
 
@@ -136,6 +135,10 @@ class HomeFragment : Fragment() {
 
     private fun showLoading(isLoading: Boolean) {
         binding.progressindicator.visibility = if (isLoading) View.VISIBLE else View.GONE
+    }
+
+    private fun setupAction() {
+        startActivity(Intent(Settings.ACTION_LOCALE_SETTINGS))
     }
 
     override fun onDestroyView() {

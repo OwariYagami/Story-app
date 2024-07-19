@@ -54,7 +54,7 @@ class MyPasswordEditText @JvmOverloads constructor(
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
-        hint = "Input your password"
+        hint = context.getString(R.string.input_your_password)
         textAlignment = View.TEXT_ALIGNMENT_VIEW_START
     }
 

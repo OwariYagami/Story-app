@@ -9,28 +9,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".auth.RegisterActivity">
-    <ImageButton
-        android:layout_marginTop="10dp"
-        android:id="@+id/btn_back"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:background="@drawable/bg_circular_blue"
-        android:src="@drawable/ic_back"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tv_register"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
         android:fontFamily="@font/worksans_semibold"
         android:includeFontPadding="false"
         android:text="@string/register"
         android:textColor="@color/black"
         android:textSize="50sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_back" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/imageView2"

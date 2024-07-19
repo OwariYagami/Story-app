@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="Theme.AppCompat." parent="Theme.Material3.DayNight.NoActionBar">
+
+    <style name="Theme.MyStoryApp" parent="Base.Theme.MyStoryApp">
         <item name="bottomNavigationStyle">@style/Widget.App.BottomNavigationView</item>
     </style>
 
@@ -9,18 +10,17 @@
     </style>
 
     <style name="ThemeOverlay.App.BottomNavigationView" parent="">
-        <item name="colorSurface">@color/white</item>
-        <item name="colorOnSurfaceVariant">@color/blueIcon</item>
+        <item name="colorSurface">@color/blue3</item>
+        <item name="colorOnSurfaceVariant">@color/blue2</item>
     </style>
 
-    <style name="Theme.App" parent="Theme.Material3.DayNight.NoActionBar">
-        <item name="colorPrimary">@color/blue</item>
-        <item name="textAppearanceLabelLarge">@style/TextAppearance.App.Button</item>
+    <style name="Widget.MyStoryApp.AppWidget.Container" parent="android:Widget">
+        <item name="android:id">@android:id/background</item>
+        <item name="android:background">?android:attr/colorBackground</item>
     </style>
 
-    <style name="TextAppearance.App.Button" parent="TextAppearance.Material3.LabelLarge">
-        <item name="fontFamily">@font/worksans_semibold</item>
-        <item name="android:fontFamily">@font/worksans_semibold</item>
+    <style name="Widget.MyStoryApp.AppWidget.InnerView" parent="android:Widget">
+        <item name="android:background">?android:attr/colorBackground</item>
+        <item name="android:textColor">?android:attr/textColorPrimary</item>
     </style>
-
 </resources>

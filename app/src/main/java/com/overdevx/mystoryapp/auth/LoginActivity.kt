@@ -7,17 +7,14 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.Button
-import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.overdevx.mystoryapp.MainActivity
-import com.overdevx.mystoryapp.MainActivity2
 import com.overdevx.mystoryapp.R
 import com.overdevx.mystoryapp.customview.MyEditText
 import com.overdevx.mystoryapp.customview.MyPasswordEditText
@@ -68,7 +65,7 @@ class LoginActivity : AppCompatActivity() {
 
         userViewModel.loginError.observe(this,Observer{message->
             message?.let {
-                Toast.makeText(this, it, Toast.LENGTH_SHORT)
+                Toast.makeText(this,getString(R.string.login_failed,it), Toast.LENGTH_SHORT)
                     .show()
             }
 
@@ -124,7 +121,7 @@ class LoginActivity : AppCompatActivity() {
         val submitButton: Button = dialogView.findViewById(R.id.btn_oke)
 
         submitButton.setOnClickListener {
-            startActivity(Intent(this@LoginActivity, MainActivity2::class.java))
+            startActivity(Intent(this@LoginActivity, MainActivity::class.java))
             dialog.dismiss()
             finish()
         }

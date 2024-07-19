@@ -7,8 +7,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
+import com.google.gson.Gson
 import com.overdevx.mystoryapp.data.datastore.DataStoreManager
 import com.overdevx.mystoryapp.data.repository.UserRepository
+import com.overdevx.mystoryapp.data.response.ResponseError
 import com.overdevx.mystoryapp.data.response.ResponseLogin
 import com.overdevx.mystoryapp.data.response.ResponseRegister
 import com.overdevx.mystoryapp.data.retrofit.ApiConfig
@@ -41,8 +43,19 @@ class UserViewModel(private val userRepository: UserRepository) : ViewModel() {
                 val response = userRepository.register(name, email, password)
                 _registerResult.value = response
             } catch (e: Exception) {
-                Log.e("RETROFIT", "Login Failed ${e.message}")
-                _registerError.value = "Login failed: ${e.message}"
+                val errorMessage = if (e is retrofit2.HttpException) {
+                    try {
+                        val jsonInString = e.response()?.errorBody()?.string()
+                        val errorBody = Gson().fromJson(jsonInString, ResponseError::class.java)
+                        errorBody.message
+                    } catch (jsonException: Exception) {
+                        "Unknown error occurred"
+                    }
+                } else {
+                    "Login failed: ${e.message}"
+                }
+                Log.e("RETROFIT", "Login Failed $errorMessage")
+                _registerError.value = "$errorMessage"
             } finally {
                 _isLoading.value=false
             }
@@ -56,8 +69,19 @@ class UserViewModel(private val userRepository: UserRepository) : ViewModel() {
                 val response = userRepository.login(email, password)
                 _loginResult.value = response
             } catch (e: Exception) {
-                Log.e("RETROFIT", "Gagal Login ${e.message}")
-                _loginError.value = "Login failed: ${e.message}"
+                val errorMessage = if (e is retrofit2.HttpException) {
+                    try {
+                        val jsonInString = e.response()?.errorBody()?.string()
+                        val errorBody = Gson().fromJson(jsonInString, ResponseError::class.java)
+                        errorBody.message
+                    } catch (jsonException: Exception) {
+                        "Unknown error occurred"
+                    }
+                } else {
+                    "Login failed: ${e.message}"
+                }
+                Log.e("RETROFIT", "Login failed $errorMessage")
+                _loginError.value ="$errorMessage"
             }finally {
                 _isLoading.value=false
             }

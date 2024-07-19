@@ -9,7 +9,6 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import com.overdevx.mystoryapp.R
 import com.overdevx.mystoryapp.databinding.ActivityOnboardingBinding
 
 class OnboardingActivity : AppCompatActivity() {

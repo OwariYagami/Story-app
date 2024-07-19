@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
     id("kotlin-parcelize")
+    id("com.google.devtools.ksp")
 }
 
 android {
@@ -16,6 +17,7 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        buildConfigField("String","BASE_URL","\"https://story-api.dicoding.dev/v1/\"")
     }
 
     buildTypes {
@@ -75,4 +77,6 @@ dependencies {
     implementation ("androidx.camera:camera-view:1.3.4")
     implementation ("androidx.camera:camera-extensions:1.3.4")
     implementation(libs.androidx.exifinterface)
+
+    ksp (libs.ksp)
 }

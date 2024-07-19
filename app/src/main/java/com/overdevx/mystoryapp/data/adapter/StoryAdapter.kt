@@ -9,13 +9,13 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.app.ActivityOptionsCompat
+import androidx.core.util.Pair
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.android.material.card.MaterialCardView
 import com.overdevx.mystoryapp.R
 import com.overdevx.mystoryapp.data.response.ListStoryItem
-import com.overdevx.mystoryapp.uiapp.DetailStoryActivity
-import androidx.core.util.Pair
+import com.overdevx.mystoryapp.ui.home.DetailStoryActivity
 
 class StoryAdapter(private var storyList: List<ListStoryItem?>?): RecyclerView.Adapter<StoryAdapter.storyViewHolder>(){
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): storyViewHolder {
@@ -32,7 +32,7 @@ class StoryAdapter(private var storyList: List<ListStoryItem?>?): RecyclerView.A
         if (currentStorypos != null) {
             Glide.with(holder.context)
                 .load(currentStorypos.photoUrl)
-                .placeholder(R.drawable.img_item)
+                .placeholder(R.drawable.img_placeholder)
                 .into(holder.storyImage)
         }
 

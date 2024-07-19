@@ -1,4 +1,4 @@
-package com.overdevx.mystoryapp.data
+package com.overdevx.mystoryapp.data.utils
 
 import android.content.ContentValues
 import android.content.Context
@@ -37,8 +37,6 @@ fun getImageUri(context: Context): Uri {
             MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
             contentValues
         )
-        // content://media/external/images/media/1000000062
-        // storage/emulated/0/Pictures/MyCamera/20230825_155303.jpg
     }
     return uri ?: getImageUriForPreQ(context)
 }
@@ -52,7 +50,6 @@ private fun getImageUriForPreQ(context: Context): Uri {
         "${BuildConfig.APPLICATION_ID}.fileprovider",
         imageFile
     )
-    //content://com.dicoding.picodiploma.mycamera.fileprovider/my_images/MyCamera/20230825_133659.jpg
 }
 
 fun createCustomTempFile(context: Context): File {

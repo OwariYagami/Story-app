@@ -11,8 +11,8 @@ import com.overdevx.mystoryapp.R
 
 class MyButton : AppCompatButton {
 
-    constructor(context: Context) : super(context) // untuk di Activity/Fragment
-    constructor(context: Context, attrs: AttributeSet) : super(context, attrs)  // untuk di XML
+    constructor(context: Context) : super(context)
+    constructor(context: Context, attrs: AttributeSet) : super(context, attrs)
 
     private var txtColor: Int = 0
     private var enabledBackground: Drawable
@@ -29,6 +29,6 @@ class MyButton : AppCompatButton {
         setTextColor(txtColor)
         textSize = 18f
         gravity = Gravity.CENTER
-        text = if(isEnabled) "Login" else "Fill all first"
+        text = if(isEnabled) context.getString(R.string.login) else context.getString(R.string.fill_all_first)
     }
 }
