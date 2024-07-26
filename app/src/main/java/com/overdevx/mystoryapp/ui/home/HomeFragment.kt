@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.Toast
+import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -37,7 +38,6 @@ class HomeFragment : Fragment() {
 
         val mainViewModelFactory = MainViewModelFactory(requireContext())
         mainViewModel = ViewModelProvider(this, mainViewModelFactory).get(MainViewModel::class.java)
-        mainViewModel.fetchStories(1, 10)
         mainViewModel.getName()
         observeData()
         observeLoading()
@@ -89,6 +89,9 @@ class HomeFragment : Fragment() {
                 binding.toolbar.view.visibility = View.GONE
             }
         })
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            requireActivity().finish() // Close the activity, effectively exiting the app
+        }
         return root
     }
 
@@ -115,12 +118,14 @@ class HomeFragment : Fragment() {
     }
 
     private fun observeData() {
-        mainViewModel.stories.observe(viewLifecycleOwner, Observer { data ->
-            binding.recyclerItem.adapter = StoryAdapter(data)
-            if (data.isNullOrEmpty()) {
-                binding.emptyLayout.root.visibility = View.VISIBLE
-            }
-        })
+        val adapter = StoryAdapter()
+        binding.recyclerItem.adapter = adapter
+        mainViewModel.stories.observe(viewLifecycleOwner) { data ->
+            adapter.submitData(lifecycle,data)
+//            if (data.) {
+//                binding.emptyLayout.root.visibility = View.VISIBLE
+//            }
+        }
 
         mainViewModel.userName.observe(viewLifecycleOwner, Observer { data ->
             binding.toolbar.toolbarUsername.text = data.toString()

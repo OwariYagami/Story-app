@@ -40,9 +40,12 @@ class SplashScreenActivity : AppCompatActivity() {
             if (data != null) {
                 token = data
                 proceedBasedOnToken()
+            } else {
+                proceedWithoutToken()
             }
         }
     }
+
     private fun proceedBasedOnToken() {
         lifecycleScope.launch {
             delay(1000)
@@ -51,6 +54,14 @@ class SplashScreenActivity : AppCompatActivity() {
             } else {
                 startActivity(Intent(this@SplashScreenActivity, OnboardingActivity::class.java))
             }
+            finish()
+        }
+    }
+
+    private fun proceedWithoutToken() {
+        lifecycleScope.launch {
+            delay(1000)
+            startActivity(Intent(this@SplashScreenActivity, OnboardingActivity::class.java))
             finish()
         }
     }

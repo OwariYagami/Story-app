@@ -17,8 +17,10 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.overdevx.mystoryapp.MainActivity
 import com.overdevx.mystoryapp.R
 import com.overdevx.mystoryapp.data.bottomsheet.UploadModalBottomSheet
 import com.overdevx.mystoryapp.data.utils.reduceFileImage
@@ -50,7 +52,7 @@ class DashboardFragment : Fragment() {
         observeUpload()
 
 
-
+        validateInputs()
         return root
     }
 
@@ -123,8 +125,11 @@ class DashboardFragment : Fragment() {
             binding.ivPlaceholder.setImageResource(R.drawable.ic_add_image)
             dashboardViewModel.uploadResult.value = null
             dialog.dismiss()
+            navigateToHome()
+
         }
         dialog.show()
+
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -152,14 +157,15 @@ class DashboardFragment : Fragment() {
                 validateInputs()
             }
 
-            override fun afterTextChanged(s: Editable?) {}
+            override fun afterTextChanged(s: Editable?) {
+            }
         })
 
         binding.btnUpload.setOnClickListener {
             uploadImage()
         }
 
-        validateInputs()
+
     }
 
     private fun startCameraX() {
@@ -183,6 +189,7 @@ class DashboardFragment : Fragment() {
             Glide.with(requireContext())
                 .load(currentImageUri)
                 .into(binding.ivPlaceholder)
+            validateInputs()
         }
     }
 
@@ -203,5 +210,9 @@ class DashboardFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
+    }
+
+    private fun navigateToHome() {
+        findNavController().navigate(R.id.action_dashboardFragment_to_homeFragment)
     }
 }

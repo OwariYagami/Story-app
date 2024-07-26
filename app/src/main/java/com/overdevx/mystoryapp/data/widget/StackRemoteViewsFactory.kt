@@ -22,7 +22,7 @@ internal class StackRemoteViewsFactory(private val mContext: Context, private va
         mWidgetItems.clear()
         runBlocking {
             try {
-                val response = userRepository.getListStory(1, 10)
+                val response = userRepository.getListStoryWidget(1, 10)
                 if (response.error==false) {
                     val stories = response.listStory ?: emptyList()
                     stories.forEach { story ->

@@ -1,6 +1,13 @@
 package com.overdevx.mystoryapp.data.repository
 
+import androidx.lifecycle.LiveData
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
+import androidx.paging.liveData
 import com.overdevx.mystoryapp.data.datastore.DataStoreManager
+import com.overdevx.mystoryapp.data.paging.StoryPagingSource
+import com.overdevx.mystoryapp.data.response.ListStoryItem
 import com.overdevx.mystoryapp.data.response.ResponseListStory
 import com.overdevx.mystoryapp.data.response.ResponseLogin
 import com.overdevx.mystoryapp.data.response.ResponseRegister
@@ -24,8 +31,17 @@ class UserRepository(private val apiService: ApiServices,private val dataStoreMa
         return response
     }
 
-    suspend fun getListStory(page: Int, size: Int): ResponseListStory {
+     fun getListStory():LiveData<PagingData<ListStoryItem>>  {
+        return Pager(
+            config = PagingConfig(5),
+            pagingSourceFactory = {StoryPagingSource(apiService)}
+        ).liveData
+    }
+    suspend fun getListStoryWidget(page: Int, size: Int): ResponseListStory {
         return apiService.getListStory(page, size)
+    }
+    suspend fun getListStoryWithLocation(): ResponseListStory {
+        return apiService.getListStoryWithLocation()
     }
 
     fun getToken(): Flow<String?> {
