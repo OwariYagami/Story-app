@@ -5,6 +5,8 @@
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
         <item name="android:windowIsTranslucent">true</item>
         <item name="colorSecondaryContainer">@color/md_theme_light_secondaryContainer</item>
+        <item name="colorPrimary">@color/blue</item>
+        <item name="colorSurfaceVariant">@color/blue2</item>
     </style>
 
     <style name="Theme.MyStoryApp.AppWidgetContainerParent" parent="@android:style/Theme.DeviceDefault">

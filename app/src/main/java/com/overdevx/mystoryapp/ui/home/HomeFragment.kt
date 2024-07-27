@@ -10,16 +10,16 @@ import android.widget.Button
 import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.overdevx.mystoryapp.R
 import com.overdevx.mystoryapp.auth.LoginActivity
+import com.overdevx.mystoryapp.data.adapter.LoadingStateAdapter
 import com.overdevx.mystoryapp.data.adapter.StoryAdapter
 import com.overdevx.mystoryapp.data.bottomsheet.ProfileModalBottomSheet
 import com.overdevx.mystoryapp.databinding.FragmentHomeBinding
+import kotlin.math.abs
 
 class HomeFragment : Fragment() {
 
@@ -37,7 +37,7 @@ class HomeFragment : Fragment() {
         val root: View = binding.root
 
         val mainViewModelFactory = MainViewModelFactory(requireContext())
-        mainViewModel = ViewModelProvider(this, mainViewModelFactory).get(MainViewModel::class.java)
+        mainViewModel = ViewModelProvider(this, mainViewModelFactory)[MainViewModel::class.java]
         mainViewModel.getName()
         observeData()
         observeLoading()
@@ -45,7 +45,7 @@ class HomeFragment : Fragment() {
             searchView.setupWithSearchBar(searchBar)
             searchView
                 .editText
-                .setOnEditorActionListener { v, actionId, event ->
+                .setOnEditorActionListener { _, _, _ ->
                     searchBar.setText(searchView.text)
                     searchView.hide()
                     false
@@ -76,8 +76,8 @@ class HomeFragment : Fragment() {
 
         }
 
-        binding.appbar.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { appBarLayout, verticalOffset ->
-            if (Math.abs(verticalOffset) - appBarLayout.totalScrollRange == 0) {
+        binding.appbar.addOnOffsetChangedListener { appBarLayout, verticalOffset ->
+            if (abs(verticalOffset) - appBarLayout.totalScrollRange == 0) {
                 // Ketika collapsed
                 binding.toolbar.toolbarTitle.visibility = View.VISIBLE
                 binding.toolbar.toolbarUsername.visibility = View.VISIBLE
@@ -88,7 +88,7 @@ class HomeFragment : Fragment() {
                 binding.toolbar.toolbarUsername.visibility = View.GONE
                 binding.toolbar.view.visibility = View.GONE
             }
-        })
+        }
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
             requireActivity().finish() // Close the activity, effectively exiting the app
         }
@@ -119,17 +119,21 @@ class HomeFragment : Fragment() {
 
     private fun observeData() {
         val adapter = StoryAdapter()
-        binding.recyclerItem.adapter = adapter
+        binding.recyclerItem.adapter = adapter.withLoadStateFooter(
+            footer = LoadingStateAdapter {
+                adapter.retry()
+            }
+        )
         mainViewModel.stories.observe(viewLifecycleOwner) { data ->
-            adapter.submitData(lifecycle,data)
+            adapter.submitData(lifecycle, data)
 //            if (data.) {
 //                binding.emptyLayout.root.visibility = View.VISIBLE
 //            }
         }
 
-        mainViewModel.userName.observe(viewLifecycleOwner, Observer { data ->
+        mainViewModel.userName.observe(viewLifecycleOwner) { data ->
             binding.toolbar.toolbarUsername.text = data.toString()
-        })
+        }
     }
 
     private fun observeLoading() {

@@ -34,7 +34,7 @@ class LoginActivity : AppCompatActivity() {
         }
 
         userViewModel =
-            ViewModelProvider(this, UserViewModelFactory(this)).get(UserViewModel::class.java)
+            ViewModelProvider(this, UserViewModelFactory(this))[UserViewModel::class.java]
         playAnimation()
 
         observeLogin()

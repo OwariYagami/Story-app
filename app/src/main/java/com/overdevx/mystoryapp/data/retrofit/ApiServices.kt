@@ -1,5 +1,6 @@
 package com.overdevx.mystoryapp.data.retrofit
 
+import com.overdevx.mystoryapp.data.database.ResponseListStoryRoom
 import com.overdevx.mystoryapp.data.response.ResponseListStory
 import com.overdevx.mystoryapp.data.response.ResponseLogin
 import com.overdevx.mystoryapp.data.response.ResponseRegister
@@ -41,6 +42,8 @@ interface ApiServices {
     suspend fun uploadImage(
         @Part file: MultipartBody.Part,
         @Part("description") description: RequestBody,
+        @Part("lat") lat: RequestBody?,
+        @Part("lon") lon: RequestBody?,
     ): ResponseUpload
 
     @GET("stories")

@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.overdevx.mystoryapp.data.datastore.DataStoreManager
+import com.overdevx.mystoryapp.data.di.Injection
 import com.overdevx.mystoryapp.data.repository.UserRepository
 import com.overdevx.mystoryapp.data.response.ListStoryItem
 import com.overdevx.mystoryapp.data.retrofit.ApiConfig
@@ -42,21 +43,19 @@ class MapsFragmentViewModel(private val userRepository: UserRepository) : ViewMo
 class MapsFragmentViewModelFactory(private val context: Context) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(MapsFragmentViewModel::class.java)) {
-            val dataStoreManager = DataStoreManager(context)
-            val userRepository = createRepositoryWithToken(dataStoreManager)
             @Suppress("UNCHECKED_CAST")
-            return MapsFragmentViewModel(userRepository) as T
+            return MapsFragmentViewModel(Injection.provideRepository(context)) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }
 
-    private fun createRepositoryWithToken(dataStoreManager: DataStoreManager): UserRepository {
-        var userRepository: UserRepository? = null
-        runBlocking {
-            val token = dataStoreManager.userToken.firstOrNull() ?: ""
-            val apiService = ApiConfig.getApiServicesWithToken(token)
-            userRepository = UserRepository(apiService, dataStoreManager)
-        }
-        return userRepository ?: throw IllegalStateException("UserRepository cannot be null")
-    }
+//    private fun createRepositoryWithToken(dataStoreManager: DataStoreManager): UserRepository {
+//        var userRepository: UserRepository? = null
+//        runBlocking {
+//            val token = dataStoreManager.userToken.firstOrNull() ?: ""
+//            val apiService = ApiConfig.getApiServicesWithToken(token)
+//            userRepository = UserRepository(apiService, dataStoreManager)
+//        }
+//        return userRepository ?: throw IllegalStateException("UserRepository cannot be null")
+//    }
 }

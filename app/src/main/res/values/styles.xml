@@ -3,8 +3,16 @@
 
     <style name="Theme.MyStoryApp" parent="Base.Theme.MyStoryApp">
         <item name="bottomNavigationStyle">@style/Widget.App.BottomNavigationView</item>
+        <item name="materialSwitchStyle">@style/Widget.App.Switch</item>
+    </style>
+    <style name="Widget.App.Switch" parent="Widget.Material3.CompoundButton.MaterialSwitch">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.App.Switch</item>
     </style>
 
+    <style name="ThemeOverlay.App.Switch" parent="">
+        <item name="colorPrimary">@color/blue</item>
+        <item name="colorSurfaceVariant">@color/blue2</item>
+    </style>
     <style name="Widget.App.BottomNavigationView" parent="Widget.Material3.BottomNavigationView">
         <item name="materialThemeOverlay">@style/ThemeOverlay.App.BottomNavigationView</item>
     </style>

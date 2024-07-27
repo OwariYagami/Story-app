@@ -64,4 +64,6 @@
     <string name="appwidget_text">STACK IMAGE</string>
     <string name="add_widget">Tambah widget</string>
     <string name="app_widget_description">Widget kumpulan gambar</string>
+    <string name="retry">Coba Lagi</string>
+    <string name="tambahkan_lokasi_saat_ini">Tambahkan lokasi saat ini</string>
 </resources>

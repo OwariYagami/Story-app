@@ -33,7 +33,7 @@ class SplashScreenActivity : AppCompatActivity() {
             insets
         }
         userViewModel =
-            ViewModelProvider(this, UserViewModelFactory(this)).get(UserViewModel::class.java)
+            ViewModelProvider(this, UserViewModelFactory(this))[UserViewModel::class.java]
         userViewModel.fetchToken()
 
         userViewModel.token.observe(this@SplashScreenActivity) { data ->

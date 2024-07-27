@@ -3,6 +3,7 @@ package com.overdevx.mystoryapp.data.widget
 import android.content.Intent
 import android.widget.RemoteViewsService
 import com.overdevx.mystoryapp.data.datastore.DataStoreManager
+import com.overdevx.mystoryapp.data.di.Injection
 import com.overdevx.mystoryapp.data.repository.UserRepository
 import com.overdevx.mystoryapp.data.retrofit.ApiConfig
 import kotlinx.coroutines.flow.firstOrNull
@@ -12,7 +13,7 @@ class StackWidgetService : RemoteViewsService() {
     override fun onGetViewFactory(intent: Intent): RemoteViewsFactory {
         val apiService = ApiConfig.getApiServicesWithToken(getTokenFromDataStore())
         val dataStoreManager = DataStoreManager(this.applicationContext)
-        val userRepository = UserRepository(apiService, dataStoreManager)
+        val userRepository = Injection.provideRepository(this.applicationContext)
         return StackRemoteViewsFactory(this.applicationContext, userRepository)
     }
 

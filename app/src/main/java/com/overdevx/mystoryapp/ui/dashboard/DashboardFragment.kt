@@ -1,6 +1,8 @@
 package com.overdevx.mystoryapp.ui.dashboard
 
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.location.Location
 import android.net.Uri
 import android.os.Bundle
 import android.text.Editable
@@ -14,13 +16,15 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.overdevx.mystoryapp.MainActivity
 import com.overdevx.mystoryapp.R
 import com.overdevx.mystoryapp.data.bottomsheet.UploadModalBottomSheet
 import com.overdevx.mystoryapp.data.utils.reduceFileImage
@@ -29,6 +33,7 @@ import com.overdevx.mystoryapp.databinding.FragmentDashboardBinding
 import com.overdevx.mystoryapp.ui.dashboard.CameraActivity.Companion.CAMERAX_RESULT
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 
@@ -38,6 +43,9 @@ class DashboardFragment : Fragment() {
     private var currentImageUri: Uri? = null
     private val binding get() = _binding!!
     private lateinit var dashboardViewModel: DashboardViewModel
+    private lateinit var fusedLocationClient: FusedLocationProviderClient
+    private  var latitude:Double?=null
+    private  var longitude:Double?=null
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -49,6 +57,7 @@ class DashboardFragment : Fragment() {
 
         _binding = FragmentDashboardBinding.inflate(inflater, container, false)
         val root: View = binding.root
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireContext())
         observeUpload()
 
 
@@ -78,14 +87,18 @@ class DashboardFragment : Fragment() {
             val imageFile = uriToFile(uri, requireContext()).reduceFileImage()
             Log.d("Image File", "showImage: ${imageFile.path}")
             val description = binding.etDesc.text.toString()
-            val requestBody = description.toRequestBody("text/plain".toMediaType())
+
+            val desc = description.toRequestBody("text/plain".toMediaType())
+            val lat: RequestBody? = latitude?.toFloat()?.toString()?.toRequestBody("text/plain".toMediaType())
+            val lon: RequestBody? = longitude?.toFloat()?.toString()?.toRequestBody("text/plain".toMediaType())
             val requestImageFile = imageFile.asRequestBody("image/jpeg".toMediaType())
+
             val multipartBody = MultipartBody.Part.createFormData(
                 "photo",
                 imageFile.name,
                 requestImageFile
             )
-            dashboardViewModel.uploadImage(multipartBody, requestBody)
+            dashboardViewModel.uploadImage(multipartBody, desc,lat,lon)
         } ?: run {
             Toast.makeText(requireContext(), "Please select an image first", Toast.LENGTH_SHORT)
                 .show()
@@ -124,6 +137,7 @@ class DashboardFragment : Fragment() {
             binding.etDesc.setText("")
             binding.ivPlaceholder.setImageResource(R.drawable.ic_add_image)
             dashboardViewModel.uploadResult.value = null
+            binding.switchLocation.isChecked=false
             dialog.dismiss()
             navigateToHome()
 
@@ -165,6 +179,11 @@ class DashboardFragment : Fragment() {
             uploadImage()
         }
 
+        binding.switchLocation.setOnCheckedChangeListener{buttonView,isChecked ->
+            if(isChecked){
+                getMyLocation()
+            }
+        }
 
     }
 
@@ -214,5 +233,32 @@ class DashboardFragment : Fragment() {
 
     private fun navigateToHome() {
         findNavController().navigate(R.id.action_dashboardFragment_to_homeFragment)
+    }
+    private val requestPermissionLauncher =
+        registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted: Boolean ->
+            if (isGranted) {
+                getMyLocation()
+            } else {
+                // Handle permission denial
+            }
+        }
+    private fun getMyLocation() {
+        if (ContextCompat.checkSelfPermission(
+                requireActivity().applicationContext,
+                android.Manifest.permission.ACCESS_FINE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED
+        ) {
+
+            fusedLocationClient.lastLocation
+                .addOnSuccessListener { location: Location? ->
+                    location?.let {
+                         latitude = it.latitude
+                         longitude = it.longitude
+                        Log.d("LOCATION","Lat :$latitude | Lon:$longitude")
+                    }
+                }
+        } else {
+            requestPermissionLauncher.launch(android.Manifest.permission.ACCESS_FINE_LOCATION)
+        }
     }
 }

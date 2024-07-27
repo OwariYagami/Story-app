@@ -36,6 +36,7 @@ android {
     }
     kotlinOptions {
         jvmTarget = "1.8"
+
     }
 
     buildFeatures{
@@ -55,6 +56,7 @@ dependencies {
     implementation(libs.androidx.lifecycle.livedata.ktx)
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
+    implementation(libs.androidx.room.ktx)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -85,4 +87,7 @@ dependencies {
     implementation(libs.play.services.location)
 
     implementation(libs.androidx.paging.runtime.ktx)
+
+    implementation(libs.androidx.room.paging)
+    ksp(libs.room.compiler)
 }

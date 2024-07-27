@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.google.gson.Gson
 import com.overdevx.mystoryapp.data.datastore.DataStoreManager
+import com.overdevx.mystoryapp.data.di.Injection
 import com.overdevx.mystoryapp.data.repository.UserRepository
 import com.overdevx.mystoryapp.data.response.ResponseError
 import com.overdevx.mystoryapp.data.response.ResponseLogin
@@ -101,11 +102,8 @@ class UserViewModel(private val userRepository: UserRepository) : ViewModel() {
 class UserViewModelFactory(private val context: Context) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(UserViewModel::class.java)) {
-            val apiService = ApiConfig.getApiServicesWithToken("")
-            val dataStoreManager = DataStoreManager(context)
-            val userRepository = UserRepository(apiService, dataStoreManager)
             @Suppress("UNCHECKED_CAST")
-            return UserViewModel(userRepository) as T
+            return UserViewModel(Injection.provideRepository(context)) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }

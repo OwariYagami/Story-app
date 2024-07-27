@@ -1,10 +1,14 @@
 package com.overdevx.mystoryapp.data.repository
 
 import androidx.lifecycle.LiveData
+import androidx.paging.ExperimentalPagingApi
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.liveData
+import com.overdevx.mystoryapp.data.database.ListStoryItemRoom
+import com.overdevx.mystoryapp.data.database.StoryDatabase
+import com.overdevx.mystoryapp.data.database.StoryRemoteMediator
 import com.overdevx.mystoryapp.data.datastore.DataStoreManager
 import com.overdevx.mystoryapp.data.paging.StoryPagingSource
 import com.overdevx.mystoryapp.data.response.ListStoryItem
@@ -17,7 +21,7 @@ import kotlinx.coroutines.flow.Flow
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 
-class UserRepository(private val apiService: ApiServices,private val dataStoreManager: DataStoreManager) {
+class UserRepository(private val database: StoryDatabase,private val apiService: ApiServices,private val dataStoreManager: DataStoreManager) {
 
     suspend fun register(name: String, email: String, password: String): ResponseRegister {
         return apiService.register(name, email, password)
@@ -31,10 +35,12 @@ class UserRepository(private val apiService: ApiServices,private val dataStoreMa
         return response
     }
 
-     fun getListStory():LiveData<PagingData<ListStoryItem>>  {
+     @OptIn(ExperimentalPagingApi::class)
+     fun getListStory():LiveData<PagingData<ListStoryItemRoom>>  {
         return Pager(
             config = PagingConfig(5),
-            pagingSourceFactory = {StoryPagingSource(apiService)}
+            remoteMediator = StoryRemoteMediator(database,apiService),
+            pagingSourceFactory = {database.storyDao().getAllStory()}
         ).liveData
     }
     suspend fun getListStoryWidget(page: Int, size: Int): ResponseListStory {
@@ -52,8 +58,8 @@ class UserRepository(private val apiService: ApiServices,private val dataStoreMa
         return dataStoreManager.userName
     }
 
-    suspend fun uploadImage(file: MultipartBody.Part, description: RequestBody): ResponseUpload {
-        return apiService.uploadImage(file, description)
+    suspend fun uploadImage(file: MultipartBody.Part, description: RequestBody,lat:RequestBody?,lon:RequestBody?): ResponseUpload {
+        return apiService.uploadImage(file, description,lat,lon)
     }
 
     suspend fun logout(){
