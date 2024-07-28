@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.overdevx.mystoryapp.R
@@ -126,9 +127,10 @@ class HomeFragment : Fragment() {
         )
         mainViewModel.stories.observe(viewLifecycleOwner) { data ->
             adapter.submitData(lifecycle, data)
-//            if (data.) {
-//                binding.emptyLayout.root.visibility = View.VISIBLE
-//            }
+            adapter.addLoadStateListener { loadState ->
+                val isEmpty = loadState.source.refresh is LoadState.NotLoading && adapter.itemCount == 0
+                binding.emptyLayout.root.visibility = if (isEmpty) View.VISIBLE else View.GONE
+            }
         }
 
         mainViewModel.userName.observe(viewLifecycleOwner) { data ->

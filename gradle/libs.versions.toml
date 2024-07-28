@@ -1,6 +1,7 @@
 [versions]
 agp = "8.5.1"
 circleimageview = "3.1.0"
+core = "1.6.1"
 datastorePreferences = "1.1.1"
 datastore = "1.1.1"
 glide = "4.16.0"
@@ -29,7 +30,13 @@ pagingRuntimeKtx = "3.3.1"
 roomPaging = "2.6.1"
 roomKtx = "2.6.1"
 roomCompiler = "2.6.1"
+coreTesting = "2.2.0"
+kotlinxCoroutinesTest = "1.7.3"
+mockitoCore = "5.6.0"
+mockitoInline = "5.2.0"
+junitJunit = "4.12"
 [libraries]
+androidx-core = { module = "androidx.test:core", version.ref = "core" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 androidx-datastore = { module = "androidx.datastore:datastore", version.ref = "datastore" }
 androidx-datastore-preferences = { module = "androidx.datastore:datastore-preferences", version.ref = "datastorePreferences" }
@@ -59,6 +66,12 @@ androidx-paging-runtime-ktx = { module = "androidx.paging:paging-runtime-ktx", v
 androidx-room-paging = { module = "androidx.room:room-paging", version.ref = "roomPaging" }
 androidx-room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "roomKtx" }
 room-compiler = { module = "androidx.room:room-compiler", version.ref = "roomCompiler" }
+androidx-core-testing = { module = "androidx.arch.core:core-testing", version.ref = "coreTesting" }
+kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinxCoroutinesTest" }
+mockito-inline = { module = "org.mockito:mockito-inline", version.ref = "mockitoInline" }
+mockito-core = { module = "org.mockito:mockito-core", version.ref = "mockitoCore" }
+junit-junit = { group = "junit", name = "junit", version.ref = "junitJunit" }
+
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
