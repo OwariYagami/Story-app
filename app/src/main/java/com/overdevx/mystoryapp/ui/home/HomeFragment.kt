@@ -90,8 +90,9 @@ class HomeFragment : Fragment() {
                 binding.toolbar.view.visibility = View.GONE
             }
         }
+
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
-            requireActivity().finish() // Close the activity, effectively exiting the app
+            requireActivity().finish()
         }
         return root
     }

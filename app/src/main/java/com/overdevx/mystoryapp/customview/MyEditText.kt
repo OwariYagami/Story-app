@@ -12,18 +12,29 @@ import androidx.appcompat.widget.AppCompatEditText
 import androidx.core.content.ContextCompat
 import com.overdevx.mystoryapp.R
 
-class MyEditText @JvmOverloads constructor(
-    context: Context, attrs: AttributeSet? = null
-) : AppCompatEditText(context, attrs), View.OnTouchListener {
+class MyEditText : AppCompatEditText, View.OnTouchListener {
 
-    private var startIcon: Drawable
-    private var errorIcon: Drawable
-    private var validIcon: Drawable
+    private var startIcon: Drawable?=null
+    private var errorIcon: Drawable?=null
+    private var validIcon: Drawable?=null
     private var currentEndIcon: Drawable? = null
     var isValid: Boolean = false
-        private set
-    init {
 
+    constructor(context: Context) : super(context) {
+        init()
+    }
+
+    constructor(context: Context, attrs: AttributeSet?) : super(context, attrs) {
+        init()
+    }
+
+    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {
+        init()
+    }
+
+    private fun init() {
+        hint = context.getString(R.string.input_your_email_address)
+        textAlignment = View.TEXT_ALIGNMENT_VIEW_START
         setBackgroundResource(R.drawable.rounded_edit_text_background)
         startIcon = ContextCompat.getDrawable(context, R.drawable.ic_email) as Drawable
         errorIcon = ContextCompat.getDrawable(context, R.drawable.ic_error) as Drawable
@@ -48,6 +59,7 @@ class MyEditText @JvmOverloads constructor(
             }
         })
     }
+
     private fun validateEmail(email: String) {
         val emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+"
         isValid = email.matches(emailPattern.toRegex())
@@ -57,8 +69,7 @@ class MyEditText @JvmOverloads constructor(
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
-        hint = context.getString(R.string.input_your_email_address)
-        textAlignment = View.TEXT_ALIGNMENT_VIEW_START
+
     }
 
     override fun onTouch(v: View?, event: MotionEvent): Boolean {

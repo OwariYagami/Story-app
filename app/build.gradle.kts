@@ -57,6 +57,7 @@ dependencies {
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
     implementation(libs.androidx.room.ktx)
+    implementation(libs.androidx.espresso.contrib)
     testImplementation(libs.junit)
     testImplementation(libs.junit.junit)
     androidTestImplementation(libs.androidx.junit)
@@ -74,12 +75,12 @@ dependencies {
 
     implementation(libs.glide)
 
-    implementation ("androidx.camera:camera-core:1.3.4")
-    implementation ("androidx.camera:camera-camera2:1.3.4")
-    implementation ("androidx.camera:camera-lifecycle:1.3.4")
-    implementation ("androidx.camera:camera-video:1.3.4")
-    implementation ("androidx.camera:camera-view:1.3.4")
-    implementation ("androidx.camera:camera-extensions:1.3.4")
+    implementation (libs.androidx.camera.core)
+    implementation (libs.androidx.camera.camera2)
+    implementation (libs.androidx.camera.lifecycle)
+    implementation (libs.androidx.camera.video)
+    implementation (libs.androidx.camera.view)
+    implementation (libs.androidx.camera.extensions)
     implementation(libs.androidx.exifinterface)
 
     ksp (libs.ksp)
@@ -100,4 +101,15 @@ dependencies {
     testImplementation(libs.mockito.core)
     testImplementation(libs.mockito.inline)
     testImplementation (libs.androidx.core)
+
+    debugImplementation(libs.androidx.fragment.testing) //launchFragmentInContainer
+    androidTestImplementation(libs.mockwebserver)
+    androidTestImplementation(libs.okhttp3.okhttp.tls)
+    androidTestImplementation(libs.espresso.contrib) //RecyclerViewActions
+    implementation(libs.androidx.espresso.idling.resource)
+    androidTestImplementation(libs.espresso.intents) //IntentsTestRule
+
+    androidTestImplementation(libs.androidx.runner)
+    androidTestImplementation(libs.androidx.espresso.core)
+    implementation (libs.guava)
 }

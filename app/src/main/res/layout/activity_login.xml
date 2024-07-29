@@ -51,6 +51,7 @@
         android:fontFamily="@font/worksans_regular"
         android:inputType="textEmailAddress"
         android:padding="5dp"
+        android:focusable="true"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
