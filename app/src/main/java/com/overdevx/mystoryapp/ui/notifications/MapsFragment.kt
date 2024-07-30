@@ -1,25 +1,22 @@
 package com.overdevx.mystoryapp.ui.notifications
 
-import androidx.fragment.app.Fragment
-
+import android.content.res.Resources
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
-
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MapStyleOptions
 import com.google.android.gms.maps.model.MarkerOptions
 import com.overdevx.mystoryapp.R
-import com.overdevx.mystoryapp.databinding.FragmentHomeBinding
 import com.overdevx.mystoryapp.databinding.FragmentMapsBinding
-import com.overdevx.mystoryapp.ui.home.MainViewModel
-import com.overdevx.mystoryapp.ui.home.MainViewModelFactory
 
 class MapsFragment : Fragment() {
     private lateinit var mMap: GoogleMap
@@ -40,6 +37,8 @@ class MapsFragment : Fragment() {
         val sydney = LatLng(-34.0, 151.0)
         mMap.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
+
+        setMapStyle()
     }
 
     override fun onCreateView(
@@ -82,7 +81,20 @@ class MapsFragment : Fragment() {
             }
         }
     }
-
+    private fun setMapStyle() {
+        try {
+            val success =
+                mMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(requireContext(), R.raw.mapstyle_aubergine))
+            if (!success) {
+                Log.e(TAG, "Style parsing failed.")
+            }
+        } catch (exception: Resources.NotFoundException) {
+            Log.e(TAG, "Can't find style. Error: ", exception)
+        }
+    }
+    companion object {
+        private const val TAG = "MapsFragment"
+    }
 //    private fun showLoading(isLoading: Boolean) {
 //        binding.progressindicator.isVisible = isLoading
 //    }

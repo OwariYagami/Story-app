@@ -12,19 +12,34 @@ import androidx.appcompat.widget.AppCompatEditText
 import androidx.core.content.ContextCompat
 import com.overdevx.mystoryapp.R
 
-class MyPasswordEditText @JvmOverloads constructor(
-    context: Context, attrs: AttributeSet? = null
-) : AppCompatEditText(context, attrs), View.OnTouchListener {
+class MyPasswordEditText : AppCompatEditText, View.OnTouchListener {
 
-    private var startIcon: Drawable
-    private var showPasswordIcon: Drawable
-    private var hidePasswordIcon: Drawable
+    private var startIcon: Drawable?=null
+    private var showPasswordIcon: Drawable?=null
+    private var hidePasswordIcon: Drawable?=null
     private var isPasswordVisible: Boolean = false
     private var currentEndIcon: Drawable? = null
     var isValid: Boolean = false
-        private set
 
-    init {
+    constructor(context: Context) : super(context) {
+        init()
+    }
+
+    constructor(context: Context, attrs: AttributeSet?) : super(context, attrs) {
+        init()
+    }
+
+    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(
+        context,
+        attrs,
+        defStyleAttr
+    ) {
+        init()
+    }
+
+    private fun init() {
+        hint = context.getString(R.string.input_your_password)
+        textAlignment = View.TEXT_ALIGNMENT_VIEW_START
         setBackgroundResource(R.drawable.rounded_edit_text_background)
         startIcon = ContextCompat.getDrawable(context, R.drawable.ic_password) as Drawable
         showPasswordIcon =
@@ -54,8 +69,7 @@ class MyPasswordEditText @JvmOverloads constructor(
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
-        hint = context.getString(R.string.input_your_password)
-        textAlignment = View.TEXT_ALIGNMENT_VIEW_START
+
     }
 
     private fun validatePassword(password: String) {

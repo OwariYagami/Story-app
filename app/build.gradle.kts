@@ -38,7 +38,9 @@ android {
         jvmTarget = "17"
 
     }
-
+    testOptions {
+        animationsDisabled = true
+    }
     buildFeatures{
         viewBinding = true
         buildConfig = true
@@ -56,25 +58,30 @@ dependencies {
     implementation(libs.androidx.lifecycle.livedata.ktx)
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
-    implementation(libs.androidx.room.ktx)
-    implementation(libs.androidx.espresso.contrib)
     testImplementation(libs.junit)
-    testImplementation(libs.junit.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
+    //circleimageview
     implementation (libs.circleimageview)
+
+    //retrofit
     implementation(libs.retrofit)
     implementation(libs.retrofit2.converter.gson)
     implementation(libs.logging.interceptor)
+
+    //viewmodel
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
 
+    //datastore
     implementation (libs.androidx.datastore.preferences)
     implementation (libs.androidx.datastore)
 
+    //glide
     implementation(libs.glide)
 
+    //camera
     implementation (libs.androidx.camera.core)
     implementation (libs.androidx.camera.camera2)
     implementation (libs.androidx.camera.lifecycle)
@@ -83,33 +90,41 @@ dependencies {
     implementation (libs.androidx.camera.extensions)
     implementation(libs.androidx.exifinterface)
 
+    //maps
     ksp (libs.ksp)
-
     implementation(libs.play.services.maps)
     implementation(libs.play.services.location)
 
+    //paging
     implementation(libs.androidx.paging.runtime.ktx)
 
+    //room
     implementation(libs.androidx.room.paging)
     ksp(libs.room.compiler)
+    implementation(libs.androidx.room.ktx)
 
-    androidTestImplementation(libs.androidx.core.testing) //InstantTaskExecutorRule
-    androidTestImplementation(libs.kotlinx.coroutines.test) //TestDispatcher
-
-    testImplementation(libs.androidx.core.testing) // InstantTaskExecutorRule
-    testImplementation(libs.kotlinx.coroutines.test) //TestDispatcher
+    //mockito
     testImplementation(libs.mockito.core)
     testImplementation(libs.mockito.inline)
     testImplementation (libs.androidx.core)
+    implementation (libs.guava)
 
+    testImplementation(libs.androidx.core.testing)
+    testImplementation(libs.kotlinx.coroutines.test)
+
+    androidTestImplementation(libs.androidx.core.testing) // InstantTaskExecutorRule
+    androidTestImplementation(libs.kotlinx.coroutines.test)
+
+    //TestCoroutineDispatcher
     debugImplementation(libs.androidx.fragment.testing) //launchFragmentInContainer
+    androidTestImplementation(libs.androidx.fragment.testing)
     androidTestImplementation(libs.mockwebserver)
     androidTestImplementation(libs.okhttp3.okhttp.tls)
     androidTestImplementation(libs.espresso.contrib) //RecyclerViewActions
     implementation(libs.androidx.espresso.idling.resource)
     androidTestImplementation(libs.espresso.intents) //IntentsTestRule
 
-    androidTestImplementation(libs.androidx.runner)
-    androidTestImplementation(libs.androidx.espresso.core)
-    implementation (libs.guava)
+    androidTestImplementation (libs.androidx.uiautomator)
+
+
 }

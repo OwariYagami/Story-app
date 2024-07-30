@@ -11,13 +11,22 @@ import com.overdevx.mystoryapp.R
 
 class MyButton : AppCompatButton {
 
-    constructor(context: Context) : super(context)
-    constructor(context: Context, attrs: AttributeSet) : super(context, attrs)
+    constructor(context: Context) : super(context){
+        init()
+    }
+    constructor(context: Context, attrs: AttributeSet) : super(context, attrs){
+        init()
+    }
+
+    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {
+        init()
+    }
 
     private var txtColor: Int = 0
-    private var enabledBackground: Drawable
-    private var disabledBackground: Drawable
-    init {
+    private var enabledBackground: Drawable?=null
+    private var disabledBackground: Drawable?=null
+    private fun init() {
+
         txtColor = ContextCompat.getColor(context, android.R.color.background_light)
         enabledBackground = ContextCompat.getDrawable(context, R.drawable.bg_button) as Drawable
         disabledBackground = ContextCompat.getDrawable(context, R.drawable.bg_button_disable) as Drawable
@@ -26,9 +35,9 @@ class MyButton : AppCompatButton {
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
         background = if(isEnabled) enabledBackground else disabledBackground
+        text = if(isEnabled) context.getString(R.string.login) else context.getString(R.string.fill_all_first)
         setTextColor(txtColor)
         textSize = 18f
         gravity = Gravity.CENTER
-        text = if(isEnabled) context.getString(R.string.login) else context.getString(R.string.fill_all_first)
     }
 }

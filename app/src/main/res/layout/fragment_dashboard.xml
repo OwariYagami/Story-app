@@ -92,7 +92,7 @@
                 app:strokeColor="@color/black"
                 app:strokeWidth="1dp">
 
-                <EditText
+                <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/et_desc"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -133,11 +133,12 @@
                     android:checked="false" />
             </LinearLayout>
 
-
             <com.overdevx.mystoryapp.customview.MyButtonSubmit
                 android:id="@+id/btn_upload"
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
+                android:text="@string/submit"
+                android:textColor="@color/white"
                 android:layout_marginTop="25dp"
                 android:enabled="false"
                 android:fontFamily="@font/worksans_semibold"
